@@ -40,10 +40,10 @@ public class EMF_Creator {
             System.out.println("DEPLOYED       -->" + System.getenv("DEPLOYED"));
             System.out.println("USER           -->" + System.getenv("USER"));
             System.out.println("PW             -->" + System.getenv("PW"));
-            System.out.println("CONNECTION_STR3 -->" + System.getenv("CONNECTION_STR3"));
+            System.out.println("CONNECTION_STR -->" + System.getenv("CONNECTION_STR"));
             String user = System.getenv("USER");
             String pw = System.getenv("PW");
-            String connection_str = System.getenv("CONNECTION_STR3");
+            String connection_str = System.getenv("CONNECTION_STR");
             Properties props = new Properties();
             props.setProperty("javax.persistence.jdbc.user", user);
             props.setProperty("javax.persistence.jdbc.password", pw);
