@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dat3startcode/dat3-startcode.svg?branch=master)](https://travis-ci.org/dat3startcode/dat3-startcode)
+[![Build Status](https://travis-ci.org/Jean-Poul/3sem_CA2_backend.svg?branch=main)](https://travis-ci.org/Jean-Poul/3sem_CA2_backend)
 
 *This project is meant as start code for projects and exercises given in Flow-1+2 (+3 using the security-branch) at http://cphbusiness.dk in the Study Program "AP degree in Computer Science"*
 
