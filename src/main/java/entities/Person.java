@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,8 +38,8 @@ public class Person implements Serializable {
 //    @OneToMany
 //    Phone phone;
 //    
-//    @ManyToMany
-//    Hobby hobby;
+    @ManyToMany(mappedBy = "persons", cascade = CascadeType.PERSIST)
+    List<Hobby> hobbies;
     
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
@@ -50,6 +51,22 @@ public class Person implements Serializable {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.hobbies = new ArrayList<>();
+    }
+    
+    public void AddHobby(Hobby hobby) {
+        if (hobby != null) {
+            this.hobbies.add(hobby);
+            hobby.getPersons().add(this);
+        }
+    }
+
+    public void RemoveHobby(Hobby hobby) {
+        if (hobby != null) {
+            hobbies.remove(hobby);
+            hobby.getPersons().remove(this);
+            
+        }
     }
 
     public Long getId() {
