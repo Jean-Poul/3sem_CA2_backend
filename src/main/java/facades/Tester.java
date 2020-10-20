@@ -31,7 +31,7 @@ public class Tester {
             em.persist(p1);
             em.persist(p2);
             //Remove tester
-            em.remove(p1);
+            //em.remove(p1);
 
             em.getTransaction().commit();
 
