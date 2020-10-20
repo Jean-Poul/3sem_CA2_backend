@@ -4,6 +4,8 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
@@ -17,10 +19,13 @@ public class Hobby implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     @Column(length = 50)
     private String name;
     
-    @Column(name = "wikilink", length = 150)
+    @Column(length = 150)
     private String wikiLink;
     
     @Column(length = 50)
@@ -40,6 +45,14 @@ public class Hobby implements Serializable {
         this.wikiLink = wikiLink;
         this.category = category;
         this.type = type;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
