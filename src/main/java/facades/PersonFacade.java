@@ -1,23 +1,23 @@
 package facades;
 
+import dto.PersonDTO;
 import entities.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-
 public class PersonFacade {
 
     private static PersonFacade instance;
     private static EntityManagerFactory emf;
-    
+
     //Private Constructor to ensure Singleton
-    private PersonFacade() {}
-    
-    
+    private PersonFacade() {
+    }
+
     /**
-     * 
+     *
      * @param _emf
      * @return an instance of this facade class.
      */
@@ -32,17 +32,28 @@ public class PersonFacade {
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
- 
-    public long getPersonCount(){
+
+    public long getPersonCount() {
         EntityManager em = emf.createEntityManager();
-        try{
-            long count = (long)em.createQuery("SELECT COUNT(p) FROM Person p").getSingleResult();
+        try {
+            long count = (long) em.createQuery("SELECT COUNT(p) FROM Person p").getSingleResult();
             return count;
-        }finally{  
+        } finally {
             em.close();
         }
-        
+    }
+
+    public PersonDTO getPerson(int id){
+        EntityManager em = emf.createEntityManager();
+        try {
+            Person p = em.find(Person.class, id);
+            if (p == null) {
+                //throw new PersonNotFoundException("No person with the provided id found");
+            }
+            return new PersonDTO(p);
+        } finally {
+            em.close();
+        }
     }
 
 }

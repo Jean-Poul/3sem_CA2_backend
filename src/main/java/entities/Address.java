@@ -9,10 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -32,18 +30,19 @@ public class Address implements Serializable {
     @Column(length = 150)
     private String additionalinfo;
 
+    @Column(length = 4)
+    private String zipCode;
+
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private List<Person> persons = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private CityInfo cityinfo;
-    
     public Address() {
     }
 
-    public Address(String street, String additionalinfo) {
+    public Address(String street, String additionalinfo, String zipCode) {
         this.street = street;
         this.additionalinfo = additionalinfo;
+        this.zipCode = zipCode;
     }
 
     public Long getId() {
@@ -70,15 +69,6 @@ public class Address implements Serializable {
         this.additionalinfo = additionalinfo;
     }
 
-    public CityInfo getCityinfo() {
-        return cityinfo;
-    }
-
-    public void setCityinfo(CityInfo cityinfo) {
-        this.cityinfo = cityinfo;
-    }
-
- 
     public List<Person> getPersons() {
         return persons;
     }
@@ -88,6 +78,14 @@ public class Address implements Serializable {
         if (person != null) {
             person.setAddress(this);
         }
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
 }

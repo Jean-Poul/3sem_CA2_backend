@@ -13,7 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,22 +27,22 @@ public class Person implements Serializable {
 
     @Column(length = 50, nullable = false)
     private String email;
-    
+
     @Column(length = 50, nullable = false)
     private String firstName;
-    
+
     @Column(length = 50, nullable = false)
     private String lastName;
-    
+
     @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
     List<Phone> phones;
-    
+
     @ManyToMany(mappedBy = "persons", cascade = CascadeType.PERSIST)
     List<Hobby> hobbies;
-    
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
-    
+
     public Person() {
     }
 
@@ -54,7 +53,7 @@ public class Person implements Serializable {
         this.phones = new ArrayList<>();
         this.hobbies = new ArrayList<>();
     }
-    
+
     public List<Phone> getPhones() {
         return phones;
     }
@@ -65,7 +64,7 @@ public class Person implements Serializable {
             phone.setPerson(this);
         }
     }
-    
+
     public void AddHobby(Hobby hobby) {
         if (hobby != null) {
             this.hobbies.add(hobby);
@@ -73,11 +72,15 @@ public class Person implements Serializable {
         }
     }
 
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
     public void RemoveHobby(Hobby hobby) {
         if (hobby != null) {
             hobbies.remove(hobby);
             hobby.getPersons().remove(this);
-            
+
         }
     }
 
@@ -112,11 +115,11 @@ public class Person implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     public void setAddress(Address address) {
         this.address = address;
-    } 
-    
+    }
+
     public Address getAddress() {
         return address;
     }

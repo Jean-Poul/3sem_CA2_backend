@@ -19,15 +19,14 @@ public class Tester {
 
         Person p1 = new Person("Mick@hotmale.com", "Mick", "Larsen");
         Person p2 = new Person("Hejsa@med.dig", "Per", "Fra CPH");
+        Person p3 = new Person("test@testesen.com", "Testmand", "Larsen");
 
-        Address a1 = new Address("Street 1", "2, th");
-        Address a2 = new Address("Street 2", "3, mf");
+        Address a1 = new Address("Street 1", "2, th", "2800");
+        Address a2 = new Address("Street 2", "3, mf", "3000");
 
-        
-        
         p2.setAddress(a1);
         p1.setAddress(a2);
-        
+
         Phone ph1 = new Phone(12345678, "home");
         Phone ph2 = new Phone(22222222, "work");
         Phone ph3 = new Phone(87654321, "home");
@@ -36,18 +35,12 @@ public class Tester {
         p1.AddPhone(ph2);
         p2.AddPhone(ph3);
 
-       
-        //System.out.println(p2.getAddress().getStreet());
-        //System.out.println(p2.getAddress());
-        
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
             em.createNamedQuery("Address.deleteAllRows").executeUpdate();
             em.persist(p1);
             em.persist(p2);
-            //Remove tester
-            //em.remove(p1);
 
             em.getTransaction().commit();
 
@@ -55,5 +48,4 @@ public class Tester {
             em.close();
         }
     }
-
 }
