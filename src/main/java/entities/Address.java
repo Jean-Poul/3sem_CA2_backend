@@ -30,20 +30,20 @@ public class Address implements Serializable {
     private String street;
 
     @Column(length = 150)
-    private String zipcode;
+    private String additionalinfo;
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private List<Person> persons = new ArrayList<>();
 
-//    @ManyToOne
-//    CityInfo cityInfo;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private CityInfo cityinfo;
     
     public Address() {
     }
 
-    public Address(String street, String zipcode) {
+    public Address(String street, String additionalinfo) {
         this.street = street;
-        this.zipcode = zipcode;
+        this.additionalinfo = additionalinfo;
     }
 
     public Long getId() {
@@ -62,15 +62,22 @@ public class Address implements Serializable {
         this.street = street;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public String getAdditionalinfo() {
+        return additionalinfo;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setAdditionalinfo(String additionalinfo) {
+        this.additionalinfo = additionalinfo;
     }
-    
-    
+
+    public CityInfo getCityinfo() {
+        return cityinfo;
+    }
+
+    public void setCityinfo(CityInfo cityinfo) {
+        this.cityinfo = cityinfo;
+    }
+
  
     public List<Person> getPersons() {
         return persons;

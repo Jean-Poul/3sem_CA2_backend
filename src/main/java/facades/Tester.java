@@ -1,6 +1,7 @@
 package facades;
 
 import entities.Address;
+import entities.CityInfo;
 import entities.Person;
 import entities.Phone;
 import javax.persistence.EntityManager;
@@ -19,9 +20,11 @@ public class Tester {
         Person p1 = new Person("Mick@hotmale.com", "Mick", "Larsen");
         Person p2 = new Person("Hejsa@med.dig", "Per", "Fra CPH");
 
-        Address a1 = new Address("Street 1", "2800");
-        Address a2 = new Address("Street 2", "2900");
+        Address a1 = new Address("Street 1", "2, th");
+        Address a2 = new Address("Street 2", "3, mf");
 
+        
+        
         p2.setAddress(a1);
         p1.setAddress(a2);
         
@@ -33,6 +36,10 @@ public class Tester {
         p1.AddPhone(ph2);
         p2.AddPhone(ph3);
 
+       
+        //System.out.println(p2.getAddress().getStreet());
+        //System.out.println(p2.getAddress());
+        
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
