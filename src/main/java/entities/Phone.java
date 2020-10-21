@@ -28,8 +28,16 @@ public class Phone implements Serializable {
     @Column(length = 50)
     private String description;
     
-//    @ManyToOne
-//    Person person;
+    @ManyToOne
+    private Person person;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
     
     
     public Phone() {
