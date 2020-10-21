@@ -35,9 +35,9 @@ public class Person implements Serializable {
     @Column(length = 50, nullable = false)
     private String lastName;
     
-//    @OneToMany
-//    Phone phone;
-//    
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+    List<Phone> phones;
+    
     @ManyToMany(mappedBy = "persons", cascade = CascadeType.PERSIST)
     List<Hobby> hobbies;
     
@@ -51,7 +51,19 @@ public class Person implements Serializable {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phones = new ArrayList<>();
         this.hobbies = new ArrayList<>();
+    }
+    
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void AddPhone(Phone phone) {
+        this.phones.add(phone);
+        if (phone != null) {
+            phone.setPerson(this);
+        }
     }
     
     public void AddHobby(Hobby hobby) {

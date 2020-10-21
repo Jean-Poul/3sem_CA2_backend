@@ -2,6 +2,7 @@ package facades;
 
 import entities.Address;
 import entities.Person;
+import entities.Phone;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
@@ -23,6 +24,14 @@ public class Tester {
 
         p2.setAddress(a1);
         p1.setAddress(a2);
+        
+        Phone ph1 = new Phone(12345678, "home");
+        Phone ph2 = new Phone(22222222, "work");
+        Phone ph3 = new Phone(87654321, "home");
+
+        p1.AddPhone(ph1);
+        p1.AddPhone(ph2);
+        p2.AddPhone(ph3);
 
         try {
             em.getTransaction().begin();
