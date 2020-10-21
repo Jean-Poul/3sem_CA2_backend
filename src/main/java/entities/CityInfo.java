@@ -1,22 +1,17 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "cityinfo")
-//@NamedQuery(name = "cityinfo.deleteAllRows", query = "DELETE from cityinfo")
 public class CityInfo implements Serializable {
 
+    
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -33,6 +28,10 @@ public class CityInfo implements Serializable {
         this.zipCode = zipCode;
         this.city = city;
     }
+    
+    public CityInfo(String zipCode) {
+        this.zipCode = zipCode;
+    }    
 
     public String getZipCode() {
         return zipCode;

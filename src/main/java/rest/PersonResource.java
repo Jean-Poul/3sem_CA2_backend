@@ -34,10 +34,10 @@ public class PersonResource {
         return "{\"count\":" + count + "}";  //Done manually so no need for a DTO
     }
 
-    @Path("/{phoneNo}")
+    @Path("/{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getById(@PathParam("phone") int id) {
+    public String getById(@PathParam("id") long id) {
         return GSON.toJson(FACADE.getPerson(id));
     }
 

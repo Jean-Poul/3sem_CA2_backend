@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +23,7 @@ public class Address implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Address_ID")
     private Long id;
 
     @Column(length = 150)
@@ -30,19 +32,18 @@ public class Address implements Serializable {
     @Column(length = 150)
     private String additionalinfo;
 
-    @Column(length = 4)
-    private String zipCode;
+    private CityInfo cityInfo;
 
-    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "address", cascade = CascadeType.ALL)
     private List<Person> persons = new ArrayList<>();
 
     public Address() {
     }
 
-    public Address(String street, String additionalinfo, String zipCode) {
+    public Address(String street, String additionalinfo, CityInfo cityInfo) {
         this.street = street;
         this.additionalinfo = additionalinfo;
-        this.zipCode = zipCode;
+        this.cityInfo = cityInfo;
     }
 
     public Long getId() {
@@ -80,12 +81,11 @@ public class Address implements Serializable {
         }
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public CityInfo getCityInfo() {
+        return cityInfo;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setCityInfo(CityInfo cityInfo) {
+        this.cityInfo = cityInfo;
     }
-
 }

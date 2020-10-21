@@ -2,10 +2,8 @@ package facades;
 
 import dto.PersonDTO;
 import entities.Person;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class PersonFacade {
 
@@ -43,10 +41,10 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO getPerson(int phoneNo){
-        EntityManager em = emf.createEntityManager();
+    public PersonDTO getPerson(Long id){
+        EntityManager em = getEntityManager();
         try {
-            Person p = em.find(Person.class, phoneNo);
+            Person p = em.find(Person.class, id);
             if (p == null) {
                 //throw new PersonNotFoundException("No person with the provided id found");
             }
