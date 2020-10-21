@@ -43,10 +43,10 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO getPerson(int id){
+    public PersonDTO getPerson(int phoneNo){
         EntityManager em = emf.createEntityManager();
         try {
-            Person p = em.find(Person.class, id);
+            Person p = em.find(Person.class, phoneNo);
             if (p == null) {
                 //throw new PersonNotFoundException("No person with the provided id found");
             }
