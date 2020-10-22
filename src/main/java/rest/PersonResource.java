@@ -61,7 +61,7 @@ public class PersonResource {
     public String updatePerson(@PathParam("id") Long id, String person) {
         PersonDTO personDTO = GSON.fromJson(person, PersonDTO.class);
         personDTO.setId(id);
-        PersonDTO updatePerson = FACADE.editPerson(personDTO);
+        PersonDTO updatePerson = FACADE.updatePerson(personDTO);
         return GSON.toJson(updatePerson);
     }
     

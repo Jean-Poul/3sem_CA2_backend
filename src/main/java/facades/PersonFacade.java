@@ -64,7 +64,7 @@ public class PersonFacade {
         }
     }
     
-    public PersonDTO editPerson(PersonDTO p) {
+    public PersonDTO updatePerson(PersonDTO p) {
 //        if ((p.getFirstName().length() == 0) || (p.getLastName().length() == 0) || (p.getPhone().length() == 0)) {
 //            throw new MissingInputException("First Name, Last Name and/or Phone is missing");
 //        }
