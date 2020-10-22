@@ -36,6 +36,9 @@ public class Person implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date created;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date lastEdited; 
 
     @Column(length = 50, nullable = false)
     private String email;
@@ -65,6 +68,7 @@ public class Person implements Serializable {
         this.phones = new ArrayList<>();
         this.hobbies = new ArrayList<>();
         this.created = new Date();
+        this.lastEdited = new Date();
     }
 
     public Person(String firstName, String lastName, String street, String zipcode) {
@@ -72,6 +76,8 @@ public class Person implements Serializable {
         this.lastName = lastName;
         this.street = address.getStreet();
         this.zipcode = address.getCityInfo().getZipCode();
+        this.created = new Date();
+        this.lastEdited = new Date();
     }
     
     
