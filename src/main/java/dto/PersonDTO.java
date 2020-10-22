@@ -16,6 +16,8 @@ public class PersonDTO {
     private String additionalInfo;
     private List phone;
     private List hobbies;
+    
+    private String email;
 
     public PersonDTO() {
     }
@@ -31,7 +33,9 @@ public class PersonDTO {
         this.additionalInfo = person.getAddress().getAdditionalinfo();
         this.phone = person.getPhones();
         this.hobbies = person.getHobbies();
+
     }
+    
 
     public String getFirstName() {
         return firstName;
@@ -103,5 +107,23 @@ public class PersonDTO {
     public void setHobbies(List hobbies) {
         this.hobbies = hobbies;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    
 
 }
