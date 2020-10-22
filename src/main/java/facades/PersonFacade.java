@@ -1,11 +1,12 @@
 package facades;
 
 import dto.PersonDTO;
+import dto.PersonsDTO;
+import entities.Address;
+import entities.CityInfo;
 import entities.Person;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class PersonFacade {
 
@@ -42,11 +43,20 @@ public class PersonFacade {
             em.close();
         }
     }
-
-    public PersonDTO getPerson(int phoneNo){
-        EntityManager em = emf.createEntityManager();
+    
+    public PersonsDTO getAllPersons() {
+        EntityManager em = getEntityManager();
         try {
-            Person p = em.find(Person.class, phoneNo);
+            return new PersonsDTO(em.createQuery("SELECT p FROM Person p", Person.class).getResultList());
+        } finally {
+            em.close();
+        }
+    }
+
+    public PersonDTO getPerson(Long id){
+        EntityManager em = getEntityManager();
+        try {
+            Person p = em.find(Person.class, id);
             if (p == null) {
                 //throw new PersonNotFoundException("No person with the provided id found");
             }
@@ -55,5 +65,61 @@ public class PersonFacade {
             em.close();
         }
     }
+    
+    public PersonDTO updatePerson(PersonDTO p) {
+//        if ((p.getFirstName().length() == 0) || (p.getLastName().length() == 0) || (p.getPhone().length() == 0)) {
+//            throw new MissingInputException("First Name, Last Name and/or Phone is missing");
+//        }
+        EntityManager em = getEntityManager();
+        Person person = em.find(Person.class, p.getId());
+//        if (person == null) {
+//            throw new PersonNotFoundException("Person ID: " + p.getId() + " not found");
+//        }
+        
+        person.setFirstName(p.getFirstName());
+        person.setLastName(p.getLastName());
+        person.setStreet(p.getStreet());
+        person.setZipcode(p.getZip());
+        person.setEmail(p.getEmail());
+
+        try {
+            em.getTransaction().begin();
+            em.merge(person);
+            em.getTransaction().commit();
+            return new PersonDTO(person);
+        } finally {
+            em.close();
+        }
+    }
+    
+        public PersonDTO deletePerson(Long id) {
+        EntityManager em = emf.createEntityManager();
+        Person pp = em.find(Person.class, id);
+            try {
+                em.getTransaction().begin();
+                em.remove(pp);
+                em.getTransaction().commit();
+            } finally {
+                em.close();
+            }
+        return new PersonDTO(pp);
+    }
+    public PersonDTO addPerson(PersonDTO newPerson) {
+        EntityManager em = emf.createEntityManager();
+
+        Person person = new Person(newPerson.getEmail(), newPerson.getFirstName(), newPerson.getLastName());
+        CityInfo cityInfo = new CityInfo(newPerson.getZip());
+        Address address = new Address(newPerson.getStreet(), newPerson.getAdditionalInfo(), cityInfo);
+        person.setAddress(address);
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new PersonDTO(person);
+    }    
+
 
 }

@@ -8,13 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "phone")
-//@NamedQuery(name = "phone.deleteAllRows", query = "DELETE from phone")
 public class Phone implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,7 +21,7 @@ public class Phone implements Serializable {
     private Long id;
     
     @Column(length = 50, nullable = false)
-    private int phone;
+    private int phoneNumber;
     
     @Column(length = 50)
     private String description;
@@ -37,18 +35,16 @@ public class Phone implements Serializable {
 
     public void setPerson(Person person) {
         this.person = person;
-    }
-    
+    }    
     
     public Phone() {
     }
 
-    public Phone(int phone, String description) {
-        this.phone = phone;
+    public Phone(int phoneNumber, String description) {
+        this.phoneNumber = phoneNumber;
         this.description = description;
     }
     
-
     public Long getId() {
         return id;
     }
@@ -57,12 +53,12 @@ public class Phone implements Serializable {
         this.id = id;
     }
 
-    public int getPhone() {
-        return phone;
+    public int getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(int phone) {
-        this.phone = phone;
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getDescription() {

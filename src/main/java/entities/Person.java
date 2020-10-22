@@ -2,10 +2,12 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "person")
@@ -23,7 +27,11 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Person_ID")
     private Long id;
+
+    @Temporal(TemporalType.DATE)
+    private Date created;
 
     @Column(length = 50, nullable = false)
     private String email;
@@ -34,14 +42,17 @@ public class Person implements Serializable {
     @Column(length = 50, nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.PERSIST)
     List<Phone> phones;
 
-    @ManyToMany(mappedBy = "persons", cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.PERSIST)
     List<Hobby> hobbies;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
+    
+    private String street;
+    private String zipcode;
 
     public Person() {
     }
@@ -52,17 +63,26 @@ public class Person implements Serializable {
         this.lastName = lastName;
         this.phones = new ArrayList<>();
         this.hobbies = new ArrayList<>();
+        this.created = new Date();
+    }
+    
+        public Person(String email, String firstName, String lastName, String street, String zipcode) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = address.getStreet();
+        this.zipcode = address.getCityInfo().getZipCode();
+    }
+
+    public void AddPhone(Phone phone) {
+        if (phone != null) {
+            this.phones.add(phone);
+            phone.setPerson(this);
+        }
     }
 
     public List<Phone> getPhones() {
         return phones;
-    }
-
-    public void AddPhone(Phone phone) {
-        this.phones.add(phone);
-        if (phone != null) {
-            phone.setPerson(this);
-        }
     }
 
     public void AddHobby(Hobby hobby) {
@@ -86,10 +106,6 @@ public class Person implements Serializable {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -123,4 +139,22 @@ public class Person implements Serializable {
     public Address getAddress() {
         return address;
     }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+    
+    
 }
