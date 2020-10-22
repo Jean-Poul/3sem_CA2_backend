@@ -1,5 +1,6 @@
 package dto;
 
+import entities.Hobby;
 import entities.Person;
 import entities.Phone;
 import java.util.List;
@@ -12,8 +13,8 @@ public class PersonDTO {
     private String street;
     private String zip;
     private String city;
-    private List phone;
-    private List hobbies;
+    private List<Phone> phones;
+    private List<Hobby> hobbies;
 
     public PersonDTO() {
     }
@@ -24,7 +25,7 @@ public class PersonDTO {
         this.street = person.getAddress().getStreet();
         this.zip = person.getAddress().getCityInfo().getZipCode();
         this.city = person.getAddress().getCityInfo().getCity();
-        this.phone = person.getPhones();
+        this.phones = person.getPhones();
         this.hobbies = person.getHobbies();
     }
 
@@ -44,13 +45,13 @@ public class PersonDTO {
         this.lastName = lastName;
     }
 
-//    public List getPhone() {
-//        return phone;
-//    }
-//
-//    public void setPhone(List phone) {
-//        this.phone = phone;
-//    }
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phone) {
+        this.phones = phone;
+    }
 
     public String getStreet() {
         return street;
@@ -76,11 +77,11 @@ public class PersonDTO {
         this.city = city;
     }
 
-    public List getHobbies() {
+    public List<Hobby> getHobbies() {
         return hobbies;
     }
 
-    public void setHobbies(List hobbies) {
+    public void setHobbies(List<Hobby> hobbies) {
         this.hobbies = hobbies;
     }
 
