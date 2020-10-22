@@ -50,7 +50,7 @@ public class PersonResource {
     @Consumes({MediaType.APPLICATION_JSON})
     public String addPerson(String person) throws Exception {
         PersonDTO p = GSON.fromJson(person, PersonDTO.class);
-        PersonDTO personAdded = FACADE.addPerson(p.getFirstName(), p.getLastName(), p.getStreet(), p.getZip());
+        PersonDTO personAdded = FACADE.addPerson(p.getEmail(), p.getFirstName(), p.getLastName(), p.getStreet(), p.getZip());
         return GSON.toJson(personAdded);
     }
 

@@ -7,10 +7,11 @@ import java.util.List;
 public class PersonDTO {
 
     private Long id;
+    private String email;
     private String firstName;
     private String lastName;
     private String street;
-    private String zip;
+    private String zipcode;
     private String city;
     private List phone;
     private List hobbies;
@@ -19,22 +20,24 @@ public class PersonDTO {
     }
 
     public PersonDTO(Person person) {
+        this.email = person.getEmail();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.street = person.getAddress().getStreet();
-        this.zip = person.getAddress().getCityInfo().getZipCode();
-        this.city = person.getAddress().getCityInfo().getCity();
+        this.zipcode = person.getAddress().getCityInfo().getZipCode();
+//        this.city = person.getAddress().getCityInfo().getCity();
 //        this.phone = person.getPhones();
 //        this.hobbies = person.getHobbies();
+        this.id = person.getId();
     }
 
-    public PersonDTO(String firstName, String lastName, String street, String zip) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.street = street;
-        this.zip = zip;
+    public String getEmail() {
+        return email;
     }
-    
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
 
     public String getFirstName() {
@@ -70,11 +73,11 @@ public class PersonDTO {
     }
 
     public String getZip() {
-        return zip;
+        return zipcode;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setZip(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     public String getCity() {
