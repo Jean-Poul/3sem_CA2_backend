@@ -16,8 +16,6 @@ public class PersonDTO {
     private String additionalInfo;
     private List phone;
     private List hobbies;
-    
-    private String email;
 
     public PersonDTO() {
     }
@@ -51,14 +49,6 @@ public class PersonDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getAdditionalInfo() {
