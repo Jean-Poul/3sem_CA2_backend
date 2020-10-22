@@ -2,10 +2,13 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.PersonDTO;
 import utils.EMF_Creator;
 import facades.PersonFacade;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -39,6 +42,16 @@ public class PersonResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getById(@PathParam("id") long id) {
         return GSON.toJson(FACADE.getPerson(id));
+    }
+    
+    //Create a new person
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public String addPerson(String person) throws Exception {
+        PersonDTO p = GSON.fromJson(person, PersonDTO.class);
+        PersonDTO personAdded = FACADE.addPerson(p.getFirstName(), p.getLastName(), p.getStreet(), p.getZip());
+        return GSON.toJson(personAdded);
     }
 
 }

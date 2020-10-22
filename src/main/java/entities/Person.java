@@ -29,6 +29,10 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Person_ID")
     private Long id;
+    
+    private String street;
+    private String zipcode;
+    private String city;
 
     @Temporal(TemporalType.DATE)
     private Date created;
@@ -62,6 +66,15 @@ public class Person implements Serializable {
         this.hobbies = new ArrayList<>();
         this.created = new Date();
     }
+
+    public Person(String firstName, String lastName, String street, String zipcode) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = address.getStreet();
+        this.zipcode = address.getCityInfo().getZipCode();
+    }
+    
+    
 
     public void AddPhone(Phone phone) {
         if (phone != null) {

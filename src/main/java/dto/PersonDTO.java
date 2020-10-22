@@ -24,9 +24,18 @@ public class PersonDTO {
         this.street = person.getAddress().getStreet();
         this.zip = person.getAddress().getCityInfo().getZipCode();
         this.city = person.getAddress().getCityInfo().getCity();
-        this.phone = person.getPhones();
-        this.hobbies = person.getHobbies();
+//        this.phone = person.getPhones();
+//        this.hobbies = person.getHobbies();
     }
+
+    public PersonDTO(String firstName, String lastName, String street, String zip) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = street;
+        this.zip = zip;
+    }
+    
+    
 
     public String getFirstName() {
         return firstName;

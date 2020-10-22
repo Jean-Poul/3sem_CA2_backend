@@ -53,5 +53,23 @@ public class PersonFacade {
             em.close();
         }
     }
+    
+    public PersonDTO addPerson(String fName, String lName, String street, String zipcode) throws Exception {
+        EntityManager em = emf.createEntityManager();
+        Person person = new Person(fName, lName, street, zipcode);
+        System.out.println(person.getFirstName() + person.getAddress().getCityInfo().getZipCode());
+        if ((fName.length() == 0 || lName.length() == 0 || street.length() == 0 || zipcode.length() == 0 )) {
+            throw new Exception("Missing input");
+        }
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new PersonDTO(person);
+
+    }
 
 }
