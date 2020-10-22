@@ -11,10 +11,13 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("person")
 public class PersonResource {
@@ -74,4 +77,18 @@ public class PersonResource {
         return "{\"status\" : \"deleted\"}";
     }
 
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response addPerson(String person) {
+
+        PersonDTO newPerson = GSON.fromJson(person, PersonDTO.class);
+        PersonDTO newPersonDTO = FACADE.addPerson(newPerson);
+        return Response.ok().entity(GSON.toJson(newPersonDTO)).build();        
+
+    }    
+
+    
+    
+    
 }
