@@ -1,6 +1,8 @@
 package facades;
 
 import dto.PersonDTO;
+import entities.Address;
+import entities.CityInfo;
 import entities.Person;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -53,5 +55,22 @@ public class PersonFacade {
             em.close();
         }
     }
+    
+    public PersonDTO addPerson(PersonDTO newPerson) {
+        EntityManager em = emf.createEntityManager();
+
+        Person person = new Person(newPerson.getEmail(), newPerson.getFirstName(), newPerson.getLastName());
+        CityInfo cityInfo = new CityInfo(newPerson.getZip());
+        Address address = new Address(newPerson.getStreet(), newPerson.getAdditionalInfo(), cityInfo);
+        person.setAddress(address);
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new PersonDTO(person);
+    }    
 
 }
