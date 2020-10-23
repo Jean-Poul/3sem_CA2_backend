@@ -8,6 +8,7 @@ import entities.Person;
 import exceptions.MissingInput;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.NotFoundException;
 
 public class PersonFacade {
 
@@ -48,7 +49,7 @@ public class PersonFacade {
     public PersonsDTO getAllPersons() {
         EntityManager em = getEntityManager();
         try {
-            return new PersonsDTO(em.createQuery("SELECT p FROM Person p", Person.class).getResultList());
+            return new PersonsDTO(em.createNamedQuery("Person.getAllRows").getResultList());
         } finally {
             em.close();
         }
@@ -59,7 +60,7 @@ public class PersonFacade {
         try {
             Person p = em.find(Person.class, phone);
             if (p == null) {
-                //throw new PersonNotFoundException("No person with the provided id found");
+                throw new NotFoundException("No person with the provided phone was found");
             }
             PersonDTO personDTO = new PersonDTO(p);
             
@@ -70,22 +71,16 @@ public class PersonFacade {
     }
 
     public PersonDTO updatePerson(PersonDTO p) {
-//        if ((p.getFirstName().length() == 0) || (p.getLastName().length() == 0) || (p.getPhone().length() == 0)) {
-//            throw new MissingInputException("First Name, Last Name and/or Phone is missing");
-//        }
+
         EntityManager em = getEntityManager();
         Person person = em.find(Person.class, p.getId());
-//        if (person == null) {
-//            throw new PersonNotFoundException("Person ID: " + p.getId() + " not found");
-//        }
+        if (person == null) {
+            throw new NotFoundException("Person ID: " + p.getId() + " not found");
+        }
         person.setEmail(p.getEmail());
         person.setFirstName(p.getFirstName());
         person.setLastName(p.getLastName());
-
-//        person.setStreet(p.getStreet());
-//        person.setZipcode(p.getZip());
-//        person.getAddress().setStreet(p.getStreet());
-//        person.getAddress().getCityInfo().setZipCode(p.getZip());
+        
         try {
             em.getTransaction().begin();
             em.merge(person);

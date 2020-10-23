@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,14 +22,16 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "person")
-@NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person")
+@NamedQueries({
+@NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person"),
+@NamedQuery(name = "Person.getAllRows", query = "SELECT p from Person p")})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Person_ID")
-    private Long id;
+    private long id;
 
     @Temporal(TemporalType.DATE)
     private Date created;
@@ -101,7 +104,7 @@ public class Person implements Serializable {
         }
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
