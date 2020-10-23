@@ -60,7 +60,11 @@ public class PersonFacade {
             if (p == null) {
                 //throw new PersonNotFoundException("No person with the provided id found");
             }
-            return new PersonDTO(p);
+            PersonDTO personDTO = new PersonDTO(p);
+            
+            System.out.println(personDTO.getZip());
+            
+            return personDTO;
         } finally {
             em.close();
         }
@@ -110,7 +114,7 @@ public class PersonFacade {
         EntityManager em = emf.createEntityManager();
 
         Person person = new Person(newPerson.getEmail(), newPerson.getFirstName(), newPerson.getLastName());
-        CityInfo cityInfo = new CityInfo(newPerson.getZip());
+        CityInfo cityInfo = new CityInfo(newPerson.getZip(), newPerson.getCity());
         Address address = new Address(newPerson.getStreet(), newPerson.getAdditionalInfo(), cityInfo);
         person.setAddress(address);
         try {
