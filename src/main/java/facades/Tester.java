@@ -2,9 +2,7 @@ package facades;
 
 import entities.Address;
 import entities.CityInfo;
-import entities.Hobby;
 import entities.Person;
-import entities.Phone;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;

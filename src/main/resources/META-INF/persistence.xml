@@ -23,7 +23,7 @@
       <property name="javax.persistence.jdbc.password" value="ax2"/>
       <!-- zipScript and hobbyScript combined in one -->
       <property name="javax.persistence.sql-load-script-source" value="META-INF/zipHobbyScript.sql"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
   <!-- Database for testing ONLY -->
