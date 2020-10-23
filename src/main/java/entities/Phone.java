@@ -29,14 +29,6 @@ public class Phone implements Serializable {
     @ManyToOne
     private Person person;
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }    
-    
     public Phone() {
     }
 
@@ -44,6 +36,14 @@ public class Phone implements Serializable {
         this.phoneNumber = phoneNumber;
         this.description = description;
     }
+    
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }    
     
     public Long getId() {
         return id;
@@ -69,6 +69,4 @@ public class Phone implements Serializable {
         this.description = description;
     }
 
-    
-    
 }

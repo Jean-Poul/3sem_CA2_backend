@@ -31,7 +31,7 @@ public class PersonResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String demo() {
-        return "{\"msg\":\"Hello World\"}";
+        return "{\"msg\":\"Hello - You have connected to our API\"}";
     }
 
     @Path("count")
@@ -51,11 +51,11 @@ public class PersonResource {
         return GSON.toJson(person);
     }
 
-    @Path("/{id}")
+    @Path("/{phone}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getById(@PathParam("id") long id) {
-        return GSON.toJson(FACADE.getPerson(id));
+    public String getByPhone(@PathParam("phone") int phone) {
+        return GSON.toJson(FACADE.getPerson(phone));
     }
     
     @PUT

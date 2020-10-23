@@ -51,8 +51,6 @@ public class Person implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
     
-//    private String street;
-//    private String zipcode;
 
     public Person() {
     }
@@ -70,8 +68,6 @@ public class Person implements Serializable {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-//        this.street = address.getStreet();
-//        this.zipcode = address.getCityInfo().getZipCode();
     }
 
     public void AddPhone(Phone phone) {
@@ -80,6 +76,7 @@ public class Person implements Serializable {
             phone.setPerson(this);
         }
     }
+ 
 
     public List<Phone> getPhones() {
         return phones;
@@ -139,22 +136,5 @@ public class Person implements Serializable {
     public Address getAddress() {
         return address;
     }
-
-//    public String getStreet() {
-//        return street;
-//    }
-//
-//    public void setStreet(String street) {
-//        this.street = street;
-//    }
-
-//    public String getZipcode() {
-//        return zipcode;
-//    }
-//
-//    public void setZipcode(String zipcode) {
-//        this.zipcode = zipcode;
-//    }
-    
     
 }

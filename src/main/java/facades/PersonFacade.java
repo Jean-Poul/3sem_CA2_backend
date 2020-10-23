@@ -54,16 +54,14 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO getPerson(Long id) {
+    public PersonDTO getPerson(int phone) {
         EntityManager em = getEntityManager();
         try {
-            Person p = em.find(Person.class, id);
+            Person p = em.find(Person.class, phone);
             if (p == null) {
                 //throw new PersonNotFoundException("No person with the provided id found");
             }
             PersonDTO personDTO = new PersonDTO(p);
-            
-            System.out.println(personDTO.getZip());
             
             return personDTO;
         } finally {
