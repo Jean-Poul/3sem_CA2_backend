@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.PersonDTO;
 import dto.PersonsDTO;
+import exceptions.MissingInput;
 import utils.EMF_Creator;
 import facades.PersonFacade;
 import javax.persistence.EntityManagerFactory;
@@ -80,7 +81,7 @@ public class PersonResource {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response addPerson(String person) {
+    public Response addPerson(String person) throws MissingInput {
 
         PersonDTO newPerson = GSON.fromJson(person, PersonDTO.class);
         PersonDTO newPersonDTO = FACADE.addPerson(newPerson);
