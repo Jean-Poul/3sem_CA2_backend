@@ -1,0 +1,120 @@
+[33mcommit 26a5415d98c972096310f844338eb854087c966b[m[33m ([m[1;36mHEAD -> [m[1;32mdeveloper[m[33m, [m[1;31morigin/developer[m[33m)[m
+Author: Mick <grevmivlos@gmail.com>
+Date:   Wed Oct 21 16:48:45 2020 +0200
+
+    All entities created, started on DTO
+
+[33mcommit 7497edc1ceea0c65dcf0ff1e1072098b38706a57[m
+Author: Mick <grevmivlos@gmail.com>
+Date:   Wed Oct 21 16:17:08 2020 +0200
+
+    All entities created, started on DTO
+
+[33mcommit 6cb4b74c6835adad90bdb1f783472e8a013a5d78[m
+Author: Per <cph-pk171@cphbusiness.dk>
+Date:   Wed Oct 21 14:51:22 2020 +0200
+
+    Added relation between Address and Zipcity
+
+[33mcommit 5d69c941c58163fd682918d0c1597a2c7ae81200[m
+Author: Jean-Poul <cph-jl360@cphbusiness.dk>
+Date:   Wed Oct 21 13:08:28 2020 +0200
+
+    REST API documentation
+
+[33mcommit 2f4f7596a6929a6e901c621b7ed27cd383824994[m
+Author: Mick Larsen <grevmivlos@gmail.com>
+Date:   Wed Oct 21 11:50:11 2020 +0200
+
+    Updated readme
+
+[33mcommit 4b2f4b707c109f596117a016bd0f8a9f64e81444[m
+Merge: 8628a2c 4a4f295
+Author: Per <cph-pk171@cphbusiness.dk>
+Date:   Wed Oct 21 10:12:00 2020 +0200
+
+    Merge branch 'entityRelations' into developer
+
+[33mcommit 4a4f295920c706541dc6f22588bd265f5966f57d[m[33m ([m[1;31morigin/entityRelations[m[33m)[m
+Author: Per <cph-pk171@cphbusiness.dk>
+Date:   Wed Oct 21 10:00:58 2020 +0200
+
+    Added oneToMany relation between Person and Phone
+
+[33mcommit 64ff3d69b4468add6110c6bb1804750b8d79d9ef[m
+Author: cph-pk <56348069+cph-pk@users.noreply.github.com>
+Date:   Tue Oct 20 22:43:27 2020 +0200
+
+    Update README.md
+
+[33mcommit 8628a2c0048bd6376e967ace6180ceb9a4f2d956[m
+Author: cph-pk <56348069+cph-pk@users.noreply.github.com>
+Date:   Tue Oct 20 22:42:51 2020 +0200
+
+    Update README.md
+
+[33mcommit ea246db4df374bed2a6f91c79c31295b1b362b88[m
+Author: Per <cph-pk171@cphbusiness.dk>
+Date:   Tue Oct 20 18:58:11 2020 +0200
+
+    Modified hobbyScript.sql
+
+[33mcommit cf430cbc5f6e0f0f2fe23dc0be42a94fe05d34ab[m
+Author: Per <cph-pk171@cphbusiness.dk>
+Date:   Tue Oct 20 18:28:02 2020 +0200
+
+    Modified zipHobbyScript.sql
+
+[33mcommit f233f9ca5b39cc716265ce605f8c61ce1cdee2eb[m
+Author: cph-pk <56348069+cph-pk@users.noreply.github.com>
+Date:   Tue Oct 20 18:03:51 2020 +0200
+
+    Update .travis.yml
+
+[33mcommit 2cbb36e8aeb566e5f437c26513d6d3573584360d[m
+Author: Per <cph-pk171@cphbusiness.dk>
+Date:   Tue Oct 20 17:49:22 2020 +0200
+
+    Fixed .travis.yml
+
+[33mcommit fed49e4a312bd2651acb845b2859a5a53e001928[m
+Author: Per <cph-pk171@cphbusiness.dk>
+Date:   Tue Oct 20 17:30:48 2020 +0200
+
+    Added manyToMany relation between Person and Hobby
+
+[33mcommit 5a48d8bb23f5a22b721949af65840b4738208fa5[m
+Author: Per <cph-pk171@cphbusiness.dk>
+Date:   Tue Oct 20 17:06:38 2020 +0200
+
+    Added a combined sql script with zip and hobby to persitance.xml
+
+[33mcommit 089223d2a560b9e1dedae17a379a84b9d059b300[m
+Author: Per <cph-pk171@cphbusiness.dk>
+Date:   Tue Oct 20 16:22:41 2020 +0200
+
+    Alteret sql scripts and added zipScript.sql to persistentce.xml
+
+[33mcommit 1e55a1cac5baf7806b688ff08ddb1de30c1c77b5[m
+Author: Per <cph-pk171@cphbusiness.dk>
+Date:   Tue Oct 20 14:39:19 2020 +0200
+
+    Added two sql-scripts to META-INF
+
+[33mcommit 3ad48278a8be52a0c4b487eedc31ca257899c5c4[m
+Author: Jean-Poul <cph-jl360@cphbusiness.dk>
+Date:   Tue Oct 20 12:10:14 2020 +0200
+
+    Getting backend up and running, entities, test and relations
+
+[33mcommit b253597a848c5c4e262d484b3cbfed26394cb6b9[m
+Author: Jean-Poul <cph-jl360@cphbusiness.dk>
+Date:   Mon Oct 19 14:14:13 2020 +0200
+
+    Persistens, pom and index.html update
+
+[33mcommit e727d0aff2cb4fef3adce7a3b6e43aa7fc8c691f[m
+Author: Jean-Poul <cph-jl360@cphbusiness.dk>
+Date:   Mon Oct 19 13:47:35 2020 +0200
+
+    Start code
