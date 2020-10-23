@@ -51,8 +51,8 @@ public class Person implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
     
-    private String street;
-    private String zipcode;
+//    private String street;
+//    private String zipcode;
 
     public Person() {
     }
@@ -70,8 +70,8 @@ public class Person implements Serializable {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.street = address.getStreet();
-        this.zipcode = address.getCityInfo().getZipCode();
+//        this.street = address.getStreet();
+//        this.zipcode = address.getCityInfo().getZipCode();
     }
 
     public void AddPhone(Phone phone) {
@@ -140,21 +140,21 @@ public class Person implements Serializable {
         return address;
     }
 
-    public String getStreet() {
-        return street;
-    }
+//    public String getStreet() {
+//        return street;
+//    }
+//
+//    public void setStreet(String street) {
+//        this.street = street;
+//    }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
+//    public String getZipcode() {
+//        return zipcode;
+//    }
+//
+//    public void setZipcode(String zipcode) {
+//        this.zipcode = zipcode;
+//    }
     
     
 }

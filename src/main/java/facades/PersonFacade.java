@@ -43,7 +43,7 @@ public class PersonFacade {
             em.close();
         }
     }
-    
+
     public PersonsDTO getAllPersons() {
         EntityManager em = getEntityManager();
         try {
@@ -53,7 +53,7 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO getPerson(Long id){
+    public PersonDTO getPerson(Long id) {
         EntityManager em = getEntityManager();
         try {
             Person p = em.find(Person.class, id);
@@ -65,7 +65,7 @@ public class PersonFacade {
             em.close();
         }
     }
-    
+
     public PersonDTO updatePerson(PersonDTO p) {
 //        if ((p.getFirstName().length() == 0) || (p.getLastName().length() == 0) || (p.getPhone().length() == 0)) {
 //            throw new MissingInputException("First Name, Last Name and/or Phone is missing");
@@ -75,13 +75,14 @@ public class PersonFacade {
 //        if (person == null) {
 //            throw new PersonNotFoundException("Person ID: " + p.getId() + " not found");
 //        }
-        
+        person.setEmail(p.getEmail());
         person.setFirstName(p.getFirstName());
         person.setLastName(p.getLastName());
-        person.setStreet(p.getStreet());
-        person.setZipcode(p.getZip());
-        person.setEmail(p.getEmail());
 
+//        person.setStreet(p.getStreet());
+//        person.setZipcode(p.getZip());
+//        person.getAddress().setStreet(p.getStreet());
+//        person.getAddress().getCityInfo().setZipCode(p.getZip());
         try {
             em.getTransaction().begin();
             em.merge(person);
@@ -91,19 +92,20 @@ public class PersonFacade {
             em.close();
         }
     }
-    
-        public PersonDTO deletePerson(Long id) {
+
+    public PersonDTO deletePerson(Long id) {
         EntityManager em = emf.createEntityManager();
         Person pp = em.find(Person.class, id);
-            try {
-                em.getTransaction().begin();
-                em.remove(pp);
-                em.getTransaction().commit();
-            } finally {
-                em.close();
-            }
+        try {
+            em.getTransaction().begin();
+            em.remove(pp);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
         return new PersonDTO(pp);
     }
+
     public PersonDTO addPerson(PersonDTO newPerson) {
         EntityManager em = emf.createEntityManager();
 
@@ -119,7 +121,6 @@ public class PersonFacade {
             em.close();
         }
         return new PersonDTO(person);
-    }    
-
+    }
 
 }
