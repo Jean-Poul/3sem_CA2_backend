@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 //Uncomment the line below, to temporarily disable this test
- @Disabled
+@Disabled
 public class PersonFacadeTest {
 
     private static EntityManagerFactory emf;
@@ -51,10 +51,12 @@ public class PersonFacadeTest {
         EntityManager em = emf.createEntityManager();
         p1 = new Person("Mick@hotmale.com", "Mick", "Larsen"); 
         p2 = new Person("Hejsa@med.dig", "Per", "Fra CPH");
+        
         try {
             em.getTransaction().begin();
             
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
+            
             em.persist(p1);
             em.persist(p2);
 
@@ -88,10 +90,8 @@ public class PersonFacadeTest {
     
     @Test
     public void testGetPersonByPhone() throws NotFoundException {
-
         PersonDTO personDTO = facade.getPerson((int) p1.getId());
         assertEquals("Mick", personDTO.getFirstName());
-
     }
     
     @Test

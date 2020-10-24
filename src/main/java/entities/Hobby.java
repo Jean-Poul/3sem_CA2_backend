@@ -39,7 +39,7 @@ public class Hobby implements Serializable {
     private String type;
     
     //@ManyToMany
-    @ManyToMany(mappedBy = "hobbies", cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Person> persons;
 
     public Hobby() {

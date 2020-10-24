@@ -73,6 +73,7 @@ public class Person implements Serializable {
     }
 
     public void addPhone(Phone phone) {
+        this.phones.add(phone);
         if (phone != null) {
             phone.setPerson(this);
         }

@@ -32,7 +32,7 @@ public class PersonDTO {
         this.city = person.getAddress().getCityInfo().getCity();
         this.additionalInfo = person.getAddress().getAdditionalinfo();
         this.phoneNumbers = allPhoneNos(person);
-//        //this.hobbies = person.getHobbies();
+        //this.hobbies = person.getHobbies();
     }
 
     static public String allPhoneNos(Person person) {
