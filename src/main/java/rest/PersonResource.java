@@ -51,7 +51,14 @@ public class PersonResource {
         return GSON.toJson(person);
     }
 
-    @Path("/{phone}")
+    @Path("/{id}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getById(@PathParam("id") long id) {
+        return GSON.toJson(FACADE.getPerson(id));
+    }
+    
+    @Path("phone/{phone}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getByPhone(@PathParam("phone") String phone) {
