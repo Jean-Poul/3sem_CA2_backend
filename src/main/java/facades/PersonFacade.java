@@ -7,12 +7,17 @@ import entities.Address;
 import entities.CityInfo;
 import entities.Hobby;
 import entities.Person;
+import entities.Phone;
 import exceptions.MissingInput;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
 import javax.persistence.TypedQuery;
+
+import javax.ws.rs.NotFoundException;
+
 
 public class PersonFacade {
 
@@ -53,18 +58,18 @@ public class PersonFacade {
     public PersonsDTO getAllPersons() {
         EntityManager em = getEntityManager();
         try {
-            return new PersonsDTO(em.createQuery("SELECT p FROM Person p", Person.class).getResultList());
+            return new PersonsDTO(em.createNamedQuery("Person.getAllRows").getResultList());
         } finally {
             em.close();
         }
     }
 
-    public PersonDTO getPerson(int phone) {
+    public PersonDTO getPerson(long phone) {
         EntityManager em = getEntityManager();
         try {
             Person p = em.find(Person.class, phone);
             if (p == null) {
-                //throw new PersonNotFoundException("No person with the provided id found");
+                throw new NotFoundException("No person with the provided phone was found");
             }
             PersonDTO personDTO = new PersonDTO(p);
             
@@ -87,22 +92,16 @@ public class PersonFacade {
     }
     
     public PersonDTO updatePerson(PersonDTO p) {
-//        if ((p.getFirstName().length() == 0) || (p.getLastName().length() == 0) || (p.getPhone().length() == 0)) {
-//            throw new MissingInputException("First Name, Last Name and/or Phone is missing");
-//        }
+
         EntityManager em = getEntityManager();
         Person person = em.find(Person.class, p.getId());
-//        if (person == null) {
-//            throw new PersonNotFoundException("Person ID: " + p.getId() + " not found");
-//        }
+        if (person == null) {
+            throw new NotFoundException("Person ID: " + p.getId() + " not found");
+        }
         person.setEmail(p.getEmail());
         person.setFirstName(p.getFirstName());
         person.setLastName(p.getLastName());
-
-//        person.setStreet(p.getStreet());
-//        person.setZipcode(p.getZip());
-//        person.getAddress().setStreet(p.getStreet());
-//        person.getAddress().getCityInfo().setZipCode(p.getZip());
+        
         try {
             em.getTransaction().begin();
             em.merge(person);
@@ -134,12 +133,24 @@ public class PersonFacade {
         CityInfo cityInfo = new CityInfo(newPerson.getZip(), newPerson.getCity());
         Address address = new Address(newPerson.getStreet(), newPerson.getAdditionalInfo(), cityInfo);
         person.setAddress(address);
+        Phone phone = new Phone();
+        
+        phone.setPhoneNumber(Integer.parseInt(newPerson.getPhoneNumbers()));
+        //phone.setPhoneNumber(Integer.parseInt(newPerson.getPhoneNumbers()));
+//        phone.setPhoneNumber(12345678);
+        
+        
+        phone.setDescription("Work");
+        phone.setPerson(person);
+        person.addPhone(phone);
+        
         
         if (newPerson.getFirstName().length() == 0 || newPerson.getLastName().length() == 0 ) {
             throw new MissingInput("Missing input");
         }
         try {
             em.getTransaction().begin();
+            em.persist(phone);
             em.persist(person);
             em.getTransaction().commit();
         } finally {

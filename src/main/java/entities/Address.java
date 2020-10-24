@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,14 +33,17 @@ public class Address implements Serializable {
     @Column(length = 150)
     private String additionalinfo;
 
+    @ManyToOne
     private CityInfo cityInfo;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "address", cascade = CascadeType.ALL)
-    private List<Person> persons = new ArrayList<>();
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "address", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "address", cascade = CascadeType.PERSIST)
+    private List<Person> persons;
 
     public Address() {
     }
 
+    //, CityInfo cityInfo
     public Address(String street, String additionalinfo, CityInfo cityInfo) {
         this.street = street;
         this.additionalinfo = additionalinfo;
@@ -74,7 +78,7 @@ public class Address implements Serializable {
         return persons;
     }
 
-    public void AddPerson(Person person) {
+    public void addPerson(Person person) {
         this.persons.add(person);
         if (person != null) {
             person.setAddress(this);
@@ -88,4 +92,6 @@ public class Address implements Serializable {
     public void setCityInfo(CityInfo cityInfo) {
         this.cityInfo = cityInfo;
     }
+    
+    
 }

@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,14 +22,16 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "person")
-@NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person")
+@NamedQueries({
+@NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person"),
+@NamedQuery(name = "Person.getAllRows", query = "SELECT p from Person p")})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Person_ID")
-    private Long id;
+    private long id;
 
     @Temporal(TemporalType.DATE)
     private Date created;
@@ -42,15 +45,14 @@ public class Person implements Serializable {
     @Column(length = 50, nullable = false)
     private String lastName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
     List<Phone> phones;
-
+  
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.PERSIST)
     List<Hobby> hobbies;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
-    
 
     public Person() {
     }
@@ -63,20 +65,23 @@ public class Person implements Serializable {
         this.hobbies = new ArrayList<>();
         this.created = new Date();
     }
-    
-        public Person(String email, String firstName, String lastName, String street, String zipcode) {
+
+    public Person(String email, String firstName, String lastName, String street, String zipcode) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public void AddPhone(Phone phone) {
+    public void addPhone(Phone phone) {
+        this.phones.add(phone);
         if (phone != null) {
-            this.phones.add(phone);
             phone.setPerson(this);
         }
     }
- 
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
 
     public List<Phone> getPhones() {
         return phones;
@@ -101,7 +106,7 @@ public class Person implements Serializable {
         }
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -131,10 +136,13 @@ public class Person implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+//         if(address != null) {
+//            address.AddPerson(this);
+//        }
     }
 
     public Address getAddress() {
         return address;
     }
-    
+
 }

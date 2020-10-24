@@ -17,6 +17,7 @@ public class PersonDTO {
     private String additionalInfo;
     private List<Phone> phone;
     private List<Hobby> hobbies;
+    private String phoneNumbers = "";
 
     public PersonDTO() {
     }
@@ -30,10 +31,29 @@ public class PersonDTO {
         this.zip = person.getAddress().getCityInfo().getZipCode();
         this.city = person.getAddress().getCityInfo().getCity();
         this.additionalInfo = person.getAddress().getAdditionalinfo();
-        this.phone = person.getPhones();
-        this.hobbies = person.getHobbies();
+        this.phoneNumbers = allPhoneNos(person);
+        //this.hobbies = person.getHobbies();
     }
-    
+
+    static public String allPhoneNos(Person person) {
+        int arrSize = person.getPhones().size();
+        StringBuilder phoneString = new StringBuilder("");
+        for (int i = 0; i < arrSize; i++) {
+            phoneString.append(person.getPhones().get(i).getPhoneNumber());
+            phoneString.append(", ");
+        }
+        phoneString.delete(phoneString.length() - 2, phoneString.length());
+        String finString = phoneString.toString();
+        return finString;
+    }
+
+    public String getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    public void setPhoneNumbers(String phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -66,7 +86,7 @@ public class PersonDTO {
     public void setPhone(List phone) {
         this.phone = phone;
     }
-    
+
     public String getStreet() {
         return street;
     }
@@ -114,7 +134,5 @@ public class PersonDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
 
 }
