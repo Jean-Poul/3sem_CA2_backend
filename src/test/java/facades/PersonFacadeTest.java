@@ -1,7 +1,9 @@
 package facades;
 
+import dto.HobbyDTO;
 import dto.PersonDTO;
 import dto.PersonsDTO;
+import entities.Hobby;
 import utils.EMF_Creator;
 import entities.Person;
 import exceptions.MissingInput;
@@ -22,7 +24,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 //Uncomment the line below, to temporarily disable this test
-//@Disabled
+@Disabled
 public class PersonFacadeTest {
 
     private static EntityManagerFactory emf;
@@ -30,6 +32,8 @@ public class PersonFacadeTest {
 
     private Person p1;
     private Person p2;
+    
+    private Hobby h1;
 
     public PersonFacadeTest() {
     }
@@ -52,6 +56,8 @@ public class PersonFacadeTest {
         EntityManager em = emf.createEntityManager();
         p1 = new Person("Mick@hotmale.com", "Mick", "Larsen");
         p2 = new Person("Hejsa@med.dig", "Per", "Kringel");
+        
+        h1 = new Hobby("Fodbold", "https://en.wikipedia.org/wiki/Fodbold", "Generel", "Udendørs");
 
         try {
             em.getTransaction().begin();
@@ -60,6 +66,8 @@ public class PersonFacadeTest {
 
             em.persist(p1);
             em.persist(p2);
+            
+            em.persist(h1);
 
             em.getTransaction().commit();
         } finally {
@@ -104,7 +112,11 @@ public class PersonFacadeTest {
     
     @Test
     public void testgetHobbyByName() throws NotFound {
+        HobbyDTO hobby = new HobbyDTO();
+        List<HobbyDTO> hobbyList;
+        String expected = h1.getName();
         
+        assertEquals(expected, facade.getHobbyByName("fodbold"));
     }
 
 }
