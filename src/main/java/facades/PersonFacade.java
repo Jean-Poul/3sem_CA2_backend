@@ -119,8 +119,10 @@ public class PersonFacade {
         Address address = new Address(newPerson.getStreet(), newPerson.getAdditionalInfo(), cityInfo);
         person.setAddress(address);
         Phone phone = new Phone();
-        phone.setPhoneNumber(person.getPhones().get(0).getPhoneNumber());
-        //phone.setPhoneNumber(12345678);
+        
+        phone.setPhoneNumber(Integer.parseInt(newPerson.getPhoneNumbers()));
+        //phone.setPhoneNumber(Integer.parseInt(newPerson.getPhoneNumbers()));
+//        phone.setPhoneNumber(12345678);
         
         
         phone.setDescription("Work");

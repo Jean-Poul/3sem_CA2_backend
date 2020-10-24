@@ -1,11 +1,9 @@
 package facades;
 
-import dto.PersonDTO;
 import entities.Address;
 import entities.CityInfo;
 import entities.Person;
 import entities.Phone;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
@@ -37,13 +35,18 @@ public class Tester {
         Phone ph4 = new Phone(44444444, "work");
 
         p1.setAddress(a1);
-        ph1.setPerson(p1);
+        p2.setAddress(a2);
+        p3.setAddress(a3);
+        
+        ///ph1.setPerson(p1);
         p1.addPhone(ph1);
         p1.addPhone(ph2);
+        p2.addPhone(ph3);
+        p3.addPhone(ph4);
 
         try {
             em.getTransaction().begin();
-            em.persist(ph1);
+           // em.persist(ph1);
 
             em.persist(p1);
             em.persist(p2);
