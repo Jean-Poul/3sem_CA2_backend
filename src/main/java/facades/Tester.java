@@ -24,9 +24,9 @@ public class Tester {
         CityInfo cInf2 = new CityInfo("4000");
         CityInfo cInf3 = new CityInfo("6000");
 
-        Address a1 = new Address("Street 1", "2, th", cInf2);
-        Address a2 = new Address("Street 2", "3, mf", cInf3);
-        Address a3 = new Address("Street 3", "3, TV", cInf1);
+        Address a1 = new Address("Street 1", "2, th", cInf1);
+        Address a2 = new Address("Street 2", "3, mf", cInf2);
+        Address a3 = new Address("Street 3", "3, TV", cInf3);
 
         // ** GIVER STACK OVERFLOW **
         Phone ph1 = new Phone(11111111, "home");
@@ -46,11 +46,14 @@ public class Tester {
 
         try {
             em.getTransaction().begin();
-           // em.persist(ph1);
+
+            em.createNamedQuery("Person.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
 
             em.persist(p1);
             em.persist(p2);
             em.persist(p3);
+          
             em.getTransaction().commit();
         } finally {
             em.close();
