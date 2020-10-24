@@ -43,6 +43,9 @@ public class Phone implements Serializable {
 
     public void setPerson(Person person) {
         this.person = person;
+//        if(person != null) {
+//           person.addPhone(this);
+//        }
     }    
     
     public Long getId() {

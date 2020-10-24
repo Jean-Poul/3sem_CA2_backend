@@ -48,10 +48,12 @@ public class Person implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.PERSIST)
     List<Phone> phones;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.PERSIST)
+    //@ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.PERSIST)
+    @ManyToMany
     List<Hobby> hobbies;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    //@ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
     
 
@@ -67,15 +69,15 @@ public class Person implements Serializable {
         this.created = new Date();
     }
     
-        public Person(String email, String firstName, String lastName, String street, String zipcode) {
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+//        public Person(String email, String firstName, String lastName, String street, String zipcode) {
+//        this.email = email;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//    }
 
     public void AddPhone(Phone phone) {
+        this.phones.add(phone);
         if (phone != null) {
-            this.phones.add(phone);
             phone.setPerson(this);
         }
     }
@@ -134,10 +136,19 @@ public class Person implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+//         if(address != null) {
+//            address.AddPerson(this);
+//        }
     }
 
     public Address getAddress() {
         return address;
+    }
+    
+    
+    
+    public void addPhone(Phone phone) {
+        this.phones.add(phone);
     }
     
 }
