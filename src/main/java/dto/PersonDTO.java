@@ -52,15 +52,23 @@ public class PersonDTO {
     static public String allHobbies(Person person) {
         int arrSize = person.getHobbies().size();
         StringBuilder hobbyString = new StringBuilder("");
-        for (int i = 0; i < arrSize; i++) {
-            hobbyString.append(person.getHobbies().get(i).getName());
-            hobbyString.append(", ");
+        String finString = "";
+
+        if (person.getHobbies().isEmpty()) {
+            for (int i = 0; i < arrSize; i++) {
+                hobbyString.append(person.getHobbies().get(i).getName());
+                hobbyString.append(", ");
+            }
+            //hobbyString.delete(hobbyString.length() - 2, hobbyString.length());
+            finString = hobbyString.toString();
+        } else {
+            Hobby h1 = new Hobby("", "", "", "");
+            person.AddHobby(h1);
+            finString = "";
         }
-        hobbyString.delete(hobbyString.length() - 2, hobbyString.length());
-        String finString = hobbyString.toString();
         return finString;
     }
-    
+
     public String getPhoneNumbers() {
         return phoneNumbers;
     }
@@ -76,7 +84,7 @@ public class PersonDTO {
     public void setHobbies(String hobbies) {
         this.hobbies = hobbies;
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
@@ -108,7 +116,6 @@ public class PersonDTO {
 //    public void setPhone(List phone) {
 //        this.phone = phone;
 //    }
-
     public String getStreet() {
         return street;
     }
@@ -140,7 +147,6 @@ public class PersonDTO {
 //    public void setHobbies(List hobbies) {
 //        this.hobbies = hobbies;
 //    }
-
     public Long getId() {
         return id;
     }

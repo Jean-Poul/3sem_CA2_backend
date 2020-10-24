@@ -160,7 +160,7 @@ public class PersonFacade {
         EntityManager em = emf.createEntityManager();
 
         Person person = new Person(newPerson.getEmail(), newPerson.getFirstName(), newPerson.getLastName());
-        CityInfo cityInfo = new CityInfo(newPerson.getZip(), newPerson.getCity());
+        CityInfo cityInfo = new CityInfo(newPerson.getZip());
         Address address = new Address(newPerson.getStreet(), newPerson.getAdditionalInfo(), cityInfo);
         person.setAddress(address);
         Phone phone = new Phone();
