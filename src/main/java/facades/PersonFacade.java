@@ -11,13 +11,10 @@ import entities.Phone;
 import exceptions.MissingInput;
 import java.util.ArrayList;
 import java.util.List;
+import exceptions.NotFound;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-
 import javax.persistence.TypedQuery;
-
-import javax.ws.rs.NotFoundException;
-
 
 public class PersonFacade {
 
@@ -45,10 +42,15 @@ public class PersonFacade {
         return emf.createEntityManager();
     }
 
-    public long getPersonCount() {
+    public long getPersonCount() throws NotFound {
         EntityManager em = emf.createEntityManager();
         try {
             long count = (long) em.createQuery("SELECT COUNT(p) FROM Person p").getSingleResult();
+
+            if (count == 0) {
+                throw new NotFound("No records were found in the database");
+            }
+
             return count;
         } finally {
             em.close();
@@ -64,44 +66,49 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO getPerson(long phone) {
+    public PersonDTO getPerson(long phone) throws NotFound {
         EntityManager em = getEntityManager();
         try {
             Person p = em.find(Person.class, phone);
             if (p == null) {
-                throw new NotFoundException("No person with the provided phone was found");
+                throw new NotFound("No person with the provided phone was found");
             }
             PersonDTO personDTO = new PersonDTO(p);
-            
+
             return personDTO;
         } finally {
             em.close();
         }
     }
 
-    public List<HobbyDTO> getHobbyByName(String name) {
+    public List<HobbyDTO> getHobbyByName(String name) throws NotFound {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Hobby> query = em.createQuery("SELECT h FROM Hobby h WHERE h.name LIKE :name", Hobby.class);
-        query.setParameter("name", "%"+name+"%");
+        query.setParameter("name", "%" + name + "%");
         List<Hobby> hobbies = query.getResultList();
         List<HobbyDTO> hobbyDTOs = new ArrayList();
+
+        if (hobbies == null || hobbyDTOs == null) {
+            throw new NotFound("No hobby with the provided title was found");
+        }
+
         hobbies.forEach((Hobby hobby) -> {
             hobbyDTOs.add(new HobbyDTO(hobby));
         });
         return hobbyDTOs;
     }
-    
-    public PersonDTO updatePerson(PersonDTO p) {
+
+    public PersonDTO updatePerson(PersonDTO p) throws NotFound {
 
         EntityManager em = getEntityManager();
         Person person = em.find(Person.class, p.getId());
         if (person == null) {
-            throw new NotFoundException("Person ID: " + p.getId() + " not found");
+            throw new NotFound("Person ID: " + p.getId() + " not found");
         }
         person.setEmail(p.getEmail());
         person.setFirstName(p.getFirstName());
         person.setLastName(p.getLastName());
-        
+
         try {
             em.getTransaction().begin();
             em.merge(person);
@@ -112,17 +119,22 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO deletePerson(Long id) {
+    public PersonDTO deletePerson(Long id) throws NotFound {
         EntityManager em = emf.createEntityManager();
-        Person pp = em.find(Person.class, id);
+        Person p = em.find(Person.class, id);
+
+        if (p.getId() == 0 || p == null) {
+            throw new NotFound("No person with the provided id was found");
+        }
+
         try {
             em.getTransaction().begin();
-            em.remove(pp);
+            em.remove(p);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-        return new PersonDTO(pp);
+        return new PersonDTO(p);
     }
 
     public PersonDTO addPerson(PersonDTO newPerson) throws MissingInput {
@@ -134,19 +146,19 @@ public class PersonFacade {
         Address address = new Address(newPerson.getStreet(), newPerson.getAdditionalInfo(), cityInfo);
         person.setAddress(address);
         Phone phone = new Phone();
-        
+
         phone.setPhoneNumber(Integer.parseInt(newPerson.getPhoneNumbers()));
-        //phone.setPhoneNumber(Integer.parseInt(newPerson.getPhoneNumbers()));
-//        phone.setPhoneNumber(12345678);
-        
-        
+
         phone.setDescription("Work");
         phone.setPerson(person);
         person.addPhone(phone);
-        
-        
-        if (newPerson.getFirstName().length() == 0 || newPerson.getLastName().length() == 0 ) {
-            throw new MissingInput("Missing input");
+
+        if (    newPerson.getFirstName().length() == 0 || newPerson.getLastName().length() == 0 || 
+                newPerson.getEmail().length() == 0 || newPerson.getPhone() == null ||
+                newPerson.getZip().length() == 0 || newPerson.getStreet().length() == 0 ||
+                newPerson.getAdditionalInfo().length() == 0
+                ) {
+            throw new MissingInput("An input field is missing input");
         }
         try {
             em.getTransaction().begin();

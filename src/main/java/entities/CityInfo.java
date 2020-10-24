@@ -5,9 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "cityinfo")
 public class CityInfo implements Serializable {
 
-    
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -24,7 +21,7 @@ public class CityInfo implements Serializable {
 
     @Column(length = 35)
     private String city;
-    
+
     @OneToMany(mappedBy = "cityInfo", cascade = CascadeType.PERSIST)
     private List<Address> addresses;
 
@@ -35,10 +32,10 @@ public class CityInfo implements Serializable {
         this.zipCode = zipCode;
         this.city = city;
     }
-    
+
     public CityInfo(String zipCode) {
         this.zipCode = zipCode;
-    }    
+    }
 
     public String getZipCode() {
         return zipCode;
@@ -56,8 +53,6 @@ public class CityInfo implements Serializable {
         this.city = city;
     }
 
-    
-    
     public List<Address> getAddresses() {
         return addresses;
     }
@@ -65,7 +60,5 @@ public class CityInfo implements Serializable {
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
-    
-    
 
 }

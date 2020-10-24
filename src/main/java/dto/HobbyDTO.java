@@ -59,6 +59,5 @@ public class HobbyDTO {
     public void setType(String type) {
         this.type = type;
     }
-    
-    
+
 }

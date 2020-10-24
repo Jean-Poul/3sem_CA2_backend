@@ -25,7 +25,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 //Uncomment the line below, to temporarily disable this test
-@Disabled
+//@Disabled
 
 public class PersonResourceTest {
 
@@ -65,7 +65,6 @@ public class PersonResourceTest {
     }
 
     // Setup the DataBase (used by the test-server and this test) in a known state BEFORE EACH TEST
-    //TODO -- Make sure to change the EntityClass used below to use YOUR OWN (renamed) Entity class
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
@@ -88,7 +87,6 @@ public class PersonResourceTest {
         given().when().get("/api/person").then().statusCode(200);
     }
 
-    
     @Test
     public void testDummyMsg() {
         given()
@@ -108,7 +106,7 @@ public class PersonResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(2));
     }
-    
+
     @Test
     public void testAddPerson() {
         Person person = new Person("pop", "corn", "1234");
@@ -122,13 +120,13 @@ public class PersonResourceTest {
                 .body("lastName", equalTo("corn"))
                 .body("id", notNullValue());
     }
-    
+
     @Test
     public void testGetAllPersons() {
         List<PersonDTO> personsDTOs;
 
         personsDTOs = given()
-                .contentType("application/jason")
+                .contentType("application/json")
                 .when()
                 .get("/person/all")
                 .then()
@@ -138,7 +136,7 @@ public class PersonResourceTest {
         PersonDTO p2DTO = new PersonDTO(p2);
         assertThat(personsDTOs, containsInAnyOrder(p1DTO, p2DTO));
     }
-    
+
     @Test
     public void testGetPerson() throws Exception {
         int expected = Math.toIntExact(p2.getId());
@@ -150,5 +148,5 @@ public class PersonResourceTest {
                 .assertThat()
                 .body("id", equalTo(expected));
     }
-    
+
 }

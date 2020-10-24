@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -44,7 +42,7 @@ public class Phone implements Serializable {
 
     public void setPerson(Person person) {
         this.person = person;
-    }    
+    }
 
     public Long getId() {
         return id;

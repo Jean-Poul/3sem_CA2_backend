@@ -28,7 +28,6 @@ public class Tester {
         Address a2 = new Address("Street 2", "3, mf", cInf2);
         Address a3 = new Address("Street 3", "3, TV", cInf3);
 
-        // ** GIVER STACK OVERFLOW **
         Phone ph1 = new Phone(11111111, "home");
         Phone ph2 = new Phone(22222222, "work");
         Phone ph3 = new Phone(33333333, "work");
@@ -37,8 +36,7 @@ public class Tester {
         p1.setAddress(a1);
         p2.setAddress(a2);
         p3.setAddress(a3);
-        
-        ///ph1.setPerson(p1);
+
         p1.addPhone(ph1);
         p1.addPhone(ph2);
         p2.addPhone(ph3);
@@ -53,13 +51,12 @@ public class Tester {
             em.persist(p1);
             em.persist(p2);
             em.persist(p3);
-          
+
             em.getTransaction().commit();
         } finally {
             em.close();
         }
 
     }
-
 
 }
