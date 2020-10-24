@@ -28,31 +28,26 @@ public class Tester {
         Address a2 = new Address("Street 2", "3, mf", cInf3);
         Address a3 = new Address("Street 3", "3, TV", cInf1);
 
-        p2.setAddress(a1);
-        p1.setAddress(a2);
-        p3.setAddress(a3);
-
         // ** GIVER STACK OVERFLOW **
         Phone ph1 = new Phone(11111111, "home");
         Phone ph2 = new Phone(22222222, "work");
         Phone ph3 = new Phone(33333333, "work");
         Phone ph4 = new Phone(44444444, "work");
 
-        p2.AddPhone(ph1); //En person kan have flere telefonnumre, men ikke omvendt
-        p2.AddPhone(ph2); //En person kan have flere telefonnumre, men ikke omvendt
-        p1.AddPhone(ph3);
-        p3.AddPhone(ph4);
-
-
-
-//        ** TILFØJER TIL HOBBY TABELLEN - IKKE KORREKT ** 
-//        Hobby h1 = new Hobby("3D-udskrivning", "https://en.wikipedia.org/wiki/3D_printing", "Generel", "Indendørs");
-//        p1.AddHobby(h1);
+        p1.setAddress(a1);
+        p2.setAddress(a2);
+        p3.setAddress(a3);
+        
+        ///ph1.setPerson(p1);
+        p1.addPhone(ph1);
+        p1.addPhone(ph2);
+        p2.addPhone(ph3);
+        p3.addPhone(ph4);
 
         try {
             em.getTransaction().begin();
-//            em.createNamedQuery("Person.deleteAllRows").executeUpdate();
-//            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+           // em.persist(ph1);
+
             em.persist(p1);
             em.persist(p2);
             em.persist(p3);
@@ -62,5 +57,6 @@ public class Tester {
         }
 
     }
+
 
 }

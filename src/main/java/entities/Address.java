@@ -74,7 +74,7 @@ public class Address implements Serializable {
         return persons;
     }
 
-    public void AddPerson(Person person) {
+    public void addPerson(Person person) {
         this.persons.add(person);
         if (person != null) {
             person.setAddress(this);

@@ -5,6 +5,7 @@ import dto.PersonsDTO;
 import entities.Address;
 import entities.CityInfo;
 import entities.Person;
+import entities.Phone;
 import exceptions.MissingInput;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -54,7 +55,7 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO getPerson(int phone) {
+    public PersonDTO getPerson(long phone) {
         EntityManager em = getEntityManager();
         try {
             Person p = em.find(Person.class, phone);
@@ -117,12 +118,24 @@ public class PersonFacade {
         CityInfo cityInfo = new CityInfo(newPerson.getZip(), newPerson.getCity());
         Address address = new Address(newPerson.getStreet(), newPerson.getAdditionalInfo(), cityInfo);
         person.setAddress(address);
+        Phone phone = new Phone();
+        
+        phone.setPhoneNumber(Integer.parseInt(newPerson.getPhoneNumbers()));
+        //phone.setPhoneNumber(Integer.parseInt(newPerson.getPhoneNumbers()));
+//        phone.setPhoneNumber(12345678);
+        
+        
+        phone.setDescription("Work");
+        phone.setPerson(person);
+        person.addPhone(phone);
+        
         
         if (newPerson.getFirstName().length() == 0 || newPerson.getLastName().length() == 0 ) {
             throw new MissingInput("Missing input");
         }
         try {
             em.getTransaction().begin();
+            em.persist(phone);
             em.persist(person);
             em.getTransaction().commit();
         } finally {
