@@ -6,8 +6,11 @@ import entities.Address;
 import entities.CityInfo;
 import entities.Person;
 import exceptions.MissingInput;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 
 public class PersonFacade {
 
@@ -53,6 +56,20 @@ public class PersonFacade {
             em.close();
         }
     }
+    
+//    public List<PersonDTO> getAllPersons() {
+//        EntityManager em = emf.createEntityManager();
+//        List<PersonDTO> personDTOList;
+//        try {
+//            TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p", Person.class);
+//            List<Person> persons = query.getResultList();
+//            personDTOList = new ArrayList<>();
+//            persons.forEach((Person person) -> personDTOList.add(new PersonDTO(person)));
+//        } finally {
+//            em.close();
+//        }
+//        return personDTOList;
+//    }
 
     public PersonDTO getPerson(Long id) {
         EntityManager em = getEntityManager();

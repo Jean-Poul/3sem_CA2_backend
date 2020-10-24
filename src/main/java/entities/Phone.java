@@ -1,15 +1,16 @@
-
 package entities;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "phone")
@@ -19,24 +20,17 @@ public class Phone implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(length = 50, nullable = false)
     private int phoneNumber;
-    
+
     @Column(length = 50)
     private String description;
-    
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_person")
     private Person person;
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }    
-    
     public Phone() {
     }
 
@@ -44,6 +38,21 @@ public class Phone implements Serializable {
         this.phoneNumber = phoneNumber;
         this.description = description;
     }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+        if (person != null) {
+            person.addPhone(this);
+        }
+    }   
+
+//    public void setPerson(Person person) {
+//        this.person = person;
+//    } 
     
     public Long getId() {
         return id;
@@ -69,6 +78,4 @@ public class Phone implements Serializable {
         this.description = description;
     }
 
-    
-    
 }

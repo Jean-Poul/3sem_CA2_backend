@@ -59,13 +59,13 @@ public class PersonDTO {
         this.additionalInfo = additionalInfo;
     }
 
-//    public List getPhone() {
-//        return phone;
-//    }
-//
-//    public void setPhone(List phone) {
-//        this.phone = phone;
-//    }
+    public List getPhone() {
+        return phone;
+    }
+
+    public void setPhone(List phone) {
+        this.phone = phone;
+    }
     public String getStreet() {
         return street;
     }

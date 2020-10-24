@@ -3,6 +3,7 @@ package facades;
 import entities.Address;
 import entities.CityInfo;
 import entities.Person;
+import entities.Phone;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
@@ -32,15 +33,15 @@ public class Tester {
         p3.setAddress(a3);
 
         // ** GIVER STACK OVERFLOW **
-//        Phone ph1 = new Phone(11111111, "home");
-//        Phone ph2 = new Phone(22222222, "work");
-//        Phone ph3 = new Phone(33333333, "work");
-//        Phone ph4 = new Phone(44444444, "work");
-//
-//        p2.AddPhone(ph1); //En person kan have flere telefonnumre, men ikke omvendt
-//        p2.AddPhone(ph2); //En person kan have flere telefonnumre, men ikke omvendt
-//        p1.AddPhone(ph3);
-//        p3.AddPhone(ph4);
+        Phone ph1 = new Phone(11111111, "home");
+        Phone ph2 = new Phone(22222222, "work");
+        Phone ph3 = new Phone(33333333, "work");
+        Phone ph4 = new Phone(44444444, "work");
+
+        p2.addPhone(ph1); //En person kan have flere telefonnumre, men ikke omvendt
+        p2.addPhone(ph2); //En person kan have flere telefonnumre, men ikke omvendt
+        p1.addPhone(ph3);
+        p3.addPhone(ph4);
 
 
 

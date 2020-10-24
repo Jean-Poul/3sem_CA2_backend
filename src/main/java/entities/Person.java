@@ -20,6 +20,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+
 @Table(name = "person")
 @NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person")
 public class Person implements Serializable {
@@ -42,7 +43,8 @@ public class Person implements Serializable {
     @Column(length = 50, nullable = false)
     private String lastName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = Phone.class, fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
     List<Phone> phones;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.PERSIST)
@@ -74,17 +76,25 @@ public class Person implements Serializable {
 //        this.zipcode = address.getCityInfo().getZipCode();
     }
 
-    public void AddPhone(Phone phone) {
-        if (phone != null) {
-            this.phones.add(phone);
-            phone.setPerson(this);
-        }
-    }
+//    public void addPhone(Phone phone) {
+//         this.phones.add(phone);
+//        if (phone != null) {       
+//            phone.setPerson(this);
+//        } 
+//    }
 
+    public void addPhone(Phone phone) {
+        this.phones.add(phone);
+    }
+    
     public List<Phone> getPhones() {
         return phones;
     }
 
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+    
     public void AddHobby(Hobby hobby) {
         if (hobby != null) {
             this.hobbies.add(hobby);

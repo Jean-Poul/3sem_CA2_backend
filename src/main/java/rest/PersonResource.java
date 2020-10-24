@@ -7,6 +7,7 @@ import dto.PersonsDTO;
 import exceptions.MissingInput;
 import utils.EMF_Creator;
 import facades.PersonFacade;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -50,6 +51,14 @@ public class PersonResource {
         PersonsDTO person = FACADE.getAllPersons();
         return GSON.toJson(person);
     }
+    
+//    @Path("/all")
+//    @GET
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public String getAllPersons() {
+//        List<PersonDTO> person = FACADE.getAllPersons();
+//        return GSON.toJson(person);
+//    }
 
     @Path("/{id}")
     @GET
