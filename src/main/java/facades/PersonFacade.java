@@ -61,14 +61,12 @@ public class PersonFacade {
         } finally {
             em.close();
         }
-    }
-    
-    
+    }   
 
-    public PersonDTO getPerson(long phone) {
+    public PersonDTO getPerson(long id) {
         EntityManager em = getEntityManager();
         try {
-            Person p = em.find(Person.class, phone);
+            Person p = em.find(Person.class, id);
             if (p == null) {
                 throw new NotFoundException("No person with the provided phone was found");
             }
@@ -80,6 +78,19 @@ public class PersonFacade {
         }
     }
 
+    public List<PersonDTO> getPersonByPhone(String phone) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Person> query;
+        query = em.createQuery("SELECT p FROM Person p JOIN p.phones ph WHERE ph.phoneNumber LIKE :phone", Person.class);
+        query.setParameter("phone", "%" + phone + "%");
+        List<Person> persons = query.getResultList();
+        List<PersonDTO> personDTOs = new ArrayList();
+        persons.forEach((Person person) -> {
+            personDTOs.add(new PersonDTO(person));
+        });
+        return personDTOs;
+    }
+    
     public List<HobbyDTO> getHobbyByName(String name) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Hobby> query = em.createQuery("SELECT h FROM Hobby h WHERE h.name LIKE :name", Hobby.class);
