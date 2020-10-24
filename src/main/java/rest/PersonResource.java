@@ -58,6 +58,13 @@ public class PersonResource {
         return GSON.toJson(FACADE.getPerson(phone));
     }
     
+    @Path("hobby/{name}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getByName(@PathParam("name") String name) {
+        return Response.ok().entity(GSON.toJson(FACADE.getHobbyByName(name))).build();
+    }
+    
     @PUT
     @Path("update/{id}")
     @Produces({MediaType.APPLICATION_JSON})

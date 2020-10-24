@@ -1,13 +1,18 @@
 package facades;
 
+import dto.HobbyDTO;
 import dto.PersonDTO;
 import dto.PersonsDTO;
 import entities.Address;
 import entities.CityInfo;
+import entities.Hobby;
 import entities.Person;
 import exceptions.MissingInput;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 
 public class PersonFacade {
 
@@ -69,6 +74,18 @@ public class PersonFacade {
         }
     }
 
+    public List<HobbyDTO> getHobbyByName(String name) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Hobby> query = em.createQuery("SELECT h FROM Hobby h WHERE h.name LIKE :name", Hobby.class);
+        query.setParameter("name", "%"+name+"%");
+        List<Hobby> hobbies = query.getResultList();
+        List<HobbyDTO> hobbyDTOs = new ArrayList();
+        hobbies.forEach((Hobby hobby) -> {
+            hobbyDTOs.add(new HobbyDTO(hobby));
+        });
+        return hobbyDTOs;
+    }
+    
     public PersonDTO updatePerson(PersonDTO p) {
 //        if ((p.getFirstName().length() == 0) || (p.getLastName().length() == 0) || (p.getPhone().length() == 0)) {
 //            throw new MissingInputException("First Name, Last Name and/or Phone is missing");
