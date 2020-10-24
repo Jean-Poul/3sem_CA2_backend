@@ -2,6 +2,7 @@ package facades;
 
 import entities.Address;
 import entities.CityInfo;
+import entities.Hobby;
 import entities.Person;
 import entities.Phone;
 import javax.persistence.EntityManager;
@@ -37,29 +38,36 @@ public class Tester {
         p1.setAddress(a1);
         p2.setAddress(a2);
         p3.setAddress(a3);
-        
+
         ///ph1.setPerson(p1);
         p1.addPhone(ph1);
         p1.addPhone(ph2);
         p2.addPhone(ph3);
         p3.addPhone(ph4);
 
+        Hobby h1 = new Hobby();
+        Hobby h2 = new Hobby();
+        Hobby h3 = new Hobby();
+
         try {
             em.getTransaction().begin();
-
-            em.createNamedQuery("Person.deleteAllRows").executeUpdate();
-            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+//            em.createNamedQuery("Person.deleteAllRows").executeUpdate();
+//            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+            h1 = em.find(Hobby.class, 2L);
+            h2 = em.find(Hobby.class, 122L);
+            h3 = em.find(Hobby.class, 301L);
+            
+            p1.AddHobby(h1);
+            p2.AddHobby(h2);
+            p3.AddHobby(h3);
 
             em.persist(p1);
             em.persist(p2);
             em.persist(p3);
-          
+
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-
     }
-
-
 }

@@ -76,6 +76,18 @@ public class PersonResource {
         return GSON.toJson(updatePerson);
     }
     
+    @PUT
+    @Path("addhobby/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public String addHobbyToPerson(@PathParam("id") Long id, String person) {
+        PersonDTO personDTO = GSON.fromJson(person, PersonDTO.class);
+        personDTO.setId(id);
+        PersonDTO updatePerson = FACADE.updatePerson(personDTO);
+        return GSON.toJson(updatePerson);
+    }
+        
+    
     @DELETE
     @Path("delete/{id}")
     @Produces({MediaType.APPLICATION_JSON})

@@ -101,8 +101,6 @@ public class Hobby implements Serializable {
         this.persons = persons;
     }
     
-    
-    
     public void addPerson (Person person) {
         this.persons.add(person);
     }

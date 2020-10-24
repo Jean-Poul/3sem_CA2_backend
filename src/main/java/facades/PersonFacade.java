@@ -18,7 +18,6 @@ import javax.persistence.TypedQuery;
 
 import javax.ws.rs.NotFoundException;
 
-
 public class PersonFacade {
 
     private static PersonFacade instance;
@@ -72,7 +71,7 @@ public class PersonFacade {
                 throw new NotFoundException("No person with the provided phone was found");
             }
             PersonDTO personDTO = new PersonDTO(p);
-            
+
             return personDTO;
         } finally {
             em.close();
@@ -82,7 +81,7 @@ public class PersonFacade {
     public List<HobbyDTO> getHobbyByName(String name) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Hobby> query = em.createQuery("SELECT h FROM Hobby h WHERE h.name LIKE :name", Hobby.class);
-        query.setParameter("name", "%"+name+"%");
+        query.setParameter("name", "%" + name + "%");
         List<Hobby> hobbies = query.getResultList();
         List<HobbyDTO> hobbyDTOs = new ArrayList();
         hobbies.forEach((Hobby hobby) -> {
@@ -90,7 +89,25 @@ public class PersonFacade {
         });
         return hobbyDTOs;
     }
-    
+
+    public String addHobby(int personID, int hobbyId) {
+        EntityManager em = emf.createEntityManager();
+
+        Hobby hobby = new Hobby();
+        Long Id = new Long(hobbyId);
+
+        try {
+            em.getTransaction().begin();
+            hobby = em.find(Hobby.class, Id);
+            Person p = em.find(Person.class, personID);
+            p.AddHobby(hobby);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return "All ok!";
+    }
+
     public PersonDTO updatePerson(PersonDTO p) {
 
         EntityManager em = getEntityManager();
@@ -101,7 +118,7 @@ public class PersonFacade {
         person.setEmail(p.getEmail());
         person.setFirstName(p.getFirstName());
         person.setLastName(p.getLastName());
-        
+
         try {
             em.getTransaction().begin();
             em.merge(person);
@@ -134,18 +151,14 @@ public class PersonFacade {
         Address address = new Address(newPerson.getStreet(), newPerson.getAdditionalInfo(), cityInfo);
         person.setAddress(address);
         Phone phone = new Phone();
-        
+
         phone.setPhoneNumber(Integer.parseInt(newPerson.getPhoneNumbers()));
-        //phone.setPhoneNumber(Integer.parseInt(newPerson.getPhoneNumbers()));
-//        phone.setPhoneNumber(12345678);
-        
-        
+
         phone.setDescription("Work");
         phone.setPerson(person);
         person.addPhone(phone);
-        
-        
-        if (newPerson.getFirstName().length() == 0 || newPerson.getLastName().length() == 0 ) {
+
+        if (newPerson.getFirstName().length() == 0 || newPerson.getLastName().length() == 0) {
             throw new MissingInput("Missing input");
         }
         try {

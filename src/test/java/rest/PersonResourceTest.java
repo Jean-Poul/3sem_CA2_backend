@@ -128,7 +128,7 @@ public class PersonResourceTest {
         List<PersonDTO> personsDTOs;
 
         personsDTOs = given()
-                .contentType("application/jason")
+                .contentType("application/json")
                 .when()
                 .get("/person/all")
                 .then()
