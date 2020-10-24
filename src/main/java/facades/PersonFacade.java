@@ -90,15 +90,15 @@ public class PersonFacade {
         return hobbyDTOs;
     }
 
-    public String addHobby(int personID, int hobbyId) {
+    public String addHobby(Long personID, Long hobbyId) {
         EntityManager em = emf.createEntityManager();
 
         Hobby hobby = new Hobby();
-        Long Id = new Long(hobbyId);
+//        Long Id = new Long(hobbyId);
 
         try {
             em.getTransaction().begin();
-            hobby = em.find(Hobby.class, Id);
+            hobby = em.find(Hobby.class, hobbyId);
             Person p = em.find(Person.class, personID);
             p.AddHobby(hobby);
             em.getTransaction().commit();

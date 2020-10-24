@@ -77,14 +77,12 @@ public class PersonResource {
     }
     
     @PUT
-    @Path("addhobby/{id}")
+    @Path("addhobby/{personId}/{hobbyId}")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public String addHobbyToPerson(@PathParam("id") Long id, String person) {
-        PersonDTO personDTO = GSON.fromJson(person, PersonDTO.class);
-        personDTO.setId(id);
-        PersonDTO updatePerson = FACADE.updatePerson(personDTO);
-        return GSON.toJson(updatePerson);
+    public String addHobbyToPerson(@PathParam("personId") Long personId, @PathParam("hobbyId") Long hobbyId) {
+        FACADE.addHobby(personId, hobbyId);
+        return "Alt OK";
     }
         
     
