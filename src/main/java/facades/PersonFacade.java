@@ -62,6 +62,8 @@ public class PersonFacade {
             em.close();
         }
     }
+    
+    
 
     public PersonDTO getPerson(long phone) {
         EntityManager em = getEntityManager();
