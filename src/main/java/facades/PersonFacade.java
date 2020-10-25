@@ -17,9 +17,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
 
-//import javax.ws.rs.NotFoundException;
-
-
 public class PersonFacade {
 
     private static PersonFacade instance;
