@@ -5,12 +5,12 @@ import com.google.gson.GsonBuilder;
 import dto.PersonDTO;
 import dto.PersonsDTO;
 import exceptions.MissingInput;
+import exceptions.NotFound;
 import utils.EMF_Creator;
 import facades.PersonFacade;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -37,12 +37,12 @@ public class PersonResource {
     @Path("count")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getRenameMeCount() {
+    public String getRenameMeCount() throws NotFound {
         long count = FACADE.getPersonCount();
         //System.out.println("--------------->"+count);
         return "{\"count\":" + count + "}";  //Done manually so no need for a DTO
     }
-    
+
     @Path("/all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -61,27 +61,28 @@ public class PersonResource {
     @Path("phone/{phone}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getByPhone(@PathParam("phone") String phone) {
+    public String getByPhone(@PathParam("phone") String phone) throws NotFound {
         return GSON.toJson(FACADE.getPersonByPhone(phone));
     }
-    
+
     @Path("hobby/{name}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getByName(@PathParam("name") String name) {
+    public Response getByName(@PathParam("name") String name) throws NotFound {
         return Response.ok().entity(GSON.toJson(FACADE.getHobbyByName(name))).build();
     }
-    
+
     @PUT
     @Path("update/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public String updatePerson(@PathParam("id") Long id, String person) {
+    public String updatePerson(@PathParam("id") Long id, String person) throws NotFound {
         PersonDTO personDTO = GSON.fromJson(person, PersonDTO.class);
         personDTO.setId(id);
         PersonDTO updatePerson = FACADE.updatePerson(personDTO);
         return GSON.toJson(updatePerson);
     }
+
     
     @PUT
     @Path("addhobby/{personId}/{hobbyId}")
@@ -91,13 +92,12 @@ public class PersonResource {
         FACADE.addHobby(personId, hobbyId);
         return "Alt OK";
     }
-        
-    
+
     @DELETE
     @Path("delete/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public String deletePerson(@PathParam("id") Long id) {
+    public String deletePerson(@PathParam("id") Long id) throws NotFound {
         PersonDTO pDelete = FACADE.deletePerson(id);
         return "{\"status\" : \"deleted\"}";
     }
@@ -106,14 +106,9 @@ public class PersonResource {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response addPerson(String person) throws MissingInput {
-
         PersonDTO newPerson = GSON.fromJson(person, PersonDTO.class);
         PersonDTO newPersonDTO = FACADE.addPerson(newPerson);
-        return Response.ok().entity(GSON.toJson(newPersonDTO)).build();        
+        return Response.ok().entity(GSON.toJson(newPersonDTO)).build();
+    }
 
-    }    
-
-    
-    
-    
 }

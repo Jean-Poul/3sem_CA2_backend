@@ -1,4 +1,3 @@
-
 package entities;
 
 import java.io.Serializable;
@@ -14,31 +13,30 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "hobby")
 @NamedQuery(name = "Hobby.deleteAllRows", query = "DELETE from Hobby")
 public class Hobby implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Hobby_ID")
     private Long id;
-    
+
     @Column(length = 70)
     private String name;
-    
+
     @Column(length = 150)
     private String wikiLink;
-    
+
     @Column(length = 50)
     private String category;
-    
+
     @Column(length = 50)
     private String type;
-    
-    //@ManyToMany
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Person> persons;
 
@@ -92,7 +90,7 @@ public class Hobby implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
-    
+
     public List<Person> getPersons() {
         return persons;
     }
@@ -100,9 +98,9 @@ public class Hobby implements Serializable {
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
-    
-    public void addPerson (Person person) {
+
+    public void addPerson(Person person) {
         this.persons.add(person);
     }
-    
+
 }

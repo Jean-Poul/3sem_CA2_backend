@@ -23,8 +23,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "person")
 @NamedQueries({
-@NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person"),
-@NamedQuery(name = "Person.getAllRows", query = "SELECT p from Person p")})
+    @NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person"),
+    @NamedQuery(name = "Person.getAllRows", query = "SELECT p from Person p")})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,7 +47,7 @@ public class Person implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "person", cascade = CascadeType.ALL)
     List<Phone> phones;
-  
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "persons", cascade = CascadeType.PERSIST)
     List<Hobby> hobbies;
 

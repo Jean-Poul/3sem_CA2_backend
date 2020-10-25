@@ -3,7 +3,6 @@ package dto;
 import entities.Person;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class PersonsDTO {
 
@@ -14,7 +13,7 @@ public class PersonsDTO {
             all.add(new PersonDTO(p));
         });
     }
-    
+
     public List<PersonDTO> getAll() {
         return all;
     }
