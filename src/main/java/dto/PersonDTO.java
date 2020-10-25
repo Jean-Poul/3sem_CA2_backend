@@ -15,9 +15,10 @@ public class PersonDTO {
     private String zip;
     private String city;
     private String additionalInfo;
-    private List<Phone> phone;
-    private List<Hobby> hobbies;
+    //private List<Phone> phone;
+    //private List<Hobby> hobbies;
     private String phoneNumbers = "";
+    private String hobbies = "";
 
     public PersonDTO() {
     }
@@ -33,6 +34,7 @@ public class PersonDTO {
         this.additionalInfo = person.getAddress().getAdditionalinfo();
         this.phoneNumbers = allPhoneNos(person);
         //this.hobbies = person.getHobbies();
+        this.hobbies = allHobbies(person);
     }
 
     static public String allPhoneNos(Person person) {
@@ -47,6 +49,18 @@ public class PersonDTO {
         return finString;
     }
 
+    static public String allHobbies(Person person) {
+        int arrSize = person.getHobbies().size();
+        StringBuilder hobbyString = new StringBuilder("");
+        for (int i = 0; i < arrSize; i++) {
+            hobbyString.append(person.getHobbies().get(i).getName());
+            hobbyString.append(", ");
+        }
+        //hobbyString.delete(hobbyString.length() - 2, hobbyString.length());
+        String finString = hobbyString.toString();
+        return finString;
+    }
+    
     public String getPhoneNumbers() {
         return phoneNumbers;
     }
@@ -55,6 +69,14 @@ public class PersonDTO {
         this.phoneNumbers = phoneNumbers;
     }
 
+    public String getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(String hobbies) {
+        this.hobbies = hobbies;
+    }
+    
     public String getFirstName() {
         return firstName;
     }
@@ -79,13 +101,13 @@ public class PersonDTO {
         this.additionalInfo = additionalInfo;
     }
 
-    public List getPhone() {
-        return phone;
-    }
-
-    public void setPhone(List phone) {
-        this.phone = phone;
-    }
+//    public List getPhone() {
+//        return phone;
+//    }
+//
+//    public void setPhone(List phone) {
+//        this.phone = phone;
+//    }
 
     public String getStreet() {
         return street;
@@ -111,13 +133,13 @@ public class PersonDTO {
         this.city = city;
     }
 
-    public List getHobbies() {
-        return hobbies;
-    }
-
-    public void setHobbies(List hobbies) {
-        this.hobbies = hobbies;
-    }
+//    public List getHobbies() {
+//        return hobbies;
+//    }
+//
+//    public void setHobbies(List hobbies) {
+//        this.hobbies = hobbies;
+//    }
 
     public Long getId() {
         return id;

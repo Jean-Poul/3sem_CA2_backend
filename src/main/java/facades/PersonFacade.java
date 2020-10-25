@@ -16,6 +16,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
+
+//import javax.ws.rs.NotFoundException;
+
+
 public class PersonFacade {
 
     private static PersonFacade instance;
@@ -64,17 +68,18 @@ public class PersonFacade {
         } finally {
             em.close();
         }
-    }
+    }   
 
-    public PersonDTO getPerson(long phone) throws NotFound {
+
+    public PersonDTO getPerson(long id) throws NotFound {
         EntityManager em = getEntityManager();
         try {
-            Person p = em.find(Person.class, phone);
-            
+            Person p = em.find(Person.class, id);
+
             if (p == null) {
                 throw new NotFound("No person with the provided phone was found");
             }
-            
+
             PersonDTO personDTO = new PersonDTO(p);
 
             return personDTO;
@@ -82,6 +87,21 @@ public class PersonFacade {
             em.close();
         }
     }
+
+
+    public List<PersonDTO> getPersonByPhone(String phone) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Person> query;
+        query = em.createQuery("SELECT p FROM Person p JOIN p.phones ph WHERE ph.phoneNumber LIKE :phone", Person.class);
+        query.setParameter("phone", "%" + phone + "%");
+        List<Person> persons = query.getResultList();
+        List<PersonDTO> personDTOs = new ArrayList();
+        persons.forEach((Person person) -> {
+            personDTOs.add(new PersonDTO(person));
+        });
+        return personDTOs;
+    }
+    
 
     public List<HobbyDTO> getHobbyByName(String name) throws NotFound {
         EntityManager em = emf.createEntityManager();
@@ -99,6 +119,26 @@ public class PersonFacade {
         });
         return hobbyDTOs;
     }
+
+
+    public String addHobby(Long personID, Long hobbyId) {
+        EntityManager em = emf.createEntityManager();
+
+        Hobby hobby = new Hobby();
+//        Long Id = new Long(hobbyId);
+
+        try {
+            em.getTransaction().begin();
+            hobby = em.find(Hobby.class, hobbyId);
+            Person p = em.find(Person.class, personID);
+            p.AddHobby(hobby);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return "All ok!";
+    }
+
 
     public PersonDTO updatePerson(PersonDTO p) throws NotFound {
 
@@ -163,6 +203,7 @@ public class PersonFacade {
                 newPerson.getAdditionalInfo().length() == 0
                 ) {
             throw new MissingInput("An input field is missing data");
+
         }
         
         try {

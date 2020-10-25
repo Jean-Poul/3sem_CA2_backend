@@ -53,6 +53,8 @@ public class Person implements Serializable {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
+    
+    
 
     public Person() {
     }

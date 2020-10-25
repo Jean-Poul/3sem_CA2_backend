@@ -51,11 +51,18 @@ public class PersonResource {
         return GSON.toJson(person);
     }
 
-    @Path("/{phone}")
+    @Path("/{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getByPhone(@PathParam("phone") int phone) throws NotFound {
-        return GSON.toJson(FACADE.getPerson(phone));
+    public String getById(@PathParam("id") long id) {
+        return GSON.toJson(FACADE.getPerson(id));
+    }
+    
+    @Path("phone/{phone}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getByPhone(@PathParam("phone") String phone) throws NotFound {
+        return GSON.toJson(FACADE.getPersonByPhone(phone));
     }
 
     @Path("hobby/{name}")
@@ -74,6 +81,16 @@ public class PersonResource {
         personDTO.setId(id);
         PersonDTO updatePerson = FACADE.updatePerson(personDTO);
         return GSON.toJson(updatePerson);
+    }
+
+    
+    @PUT
+    @Path("addhobby/{personId}/{hobbyId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public String addHobbyToPerson(@PathParam("personId") Long personId, @PathParam("hobbyId") Long hobbyId) {
+        FACADE.addHobby(personId, hobbyId);
+        return "Alt OK";
     }
 
     @DELETE
