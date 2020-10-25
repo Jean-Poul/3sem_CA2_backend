@@ -56,7 +56,7 @@ public class PersonDTO {
             hobbyString.append(person.getHobbies().get(i).getName());
             hobbyString.append(", ");
         }
-        hobbyString.delete(hobbyString.length() - 2, hobbyString.length());
+        //hobbyString.delete(hobbyString.length() - 2, hobbyString.length());
         String finString = hobbyString.toString();
         return finString;
     }
