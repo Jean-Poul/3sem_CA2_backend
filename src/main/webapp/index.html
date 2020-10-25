@@ -16,6 +16,7 @@
             margin-top: 5%;
             margin-left: 15%;
             margin-right: 15%;
+            margin-bottom: 5%;
             line-height: 1.5;
         }
     </style>
@@ -40,7 +41,7 @@
         <div class="row mt-4">
             <div class="col-md">
                 <a href="https://github.com/AlexanderPihl">Github: Alexander</a><br>
-                <a href="https://github.com/Jean-Poul">Github: Jean-Paul</a><br>
+                <a href="https://github.com/Jean-Poul">Github: Jean-Poul</a><br>
                 <a href="https://github.com/Amazingh0rse">Github: Morten</a><br>
                 <a href="https://github.com/MivleDK">Github: Mick</a><br>
                 <a href="https://github.com/cph-pk">Github: Per</a><br>
@@ -67,7 +68,7 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-1">GET</div>
-            <div class="col-md-3">/api/person/phone/{phone}</div>
+            <div class="col-md-3">/api/person/phone/{id}</div>
             <div class="col-md-2"></div>
             <div class="col-md-3">[ID, email, firstName, lastName, street, zipcode, additionalInfo, [phone1, phone2,
                 phone3…],
@@ -76,38 +77,105 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-1">GET</div>
+            <div class="col-md-3">/api/person/phone/{phone}</div>
+            <div class="col-md-2"></div>
+            <div class="col-md-3">[ID, email, firstName, lastName, street, zipcode, additionalInfo, [phone1, phone2,
+                phone3…],
+                [hobby1, hobby2, hobby3…]]</div>
+            <div class="col-md-3">(e3)</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-1">GET</div>
             <div class="col-md-3">/api/person/hobbies/{title}</div>
             <div class="col-md-2"></div>
             <div class="col-md-3">[title, url, category]</div>
-            <div class="col-md-3">(e3)</div>
+            <div class="col-md-3">(e4)</div>
         </div>
         <div class="row mt-4">
             <div class="col-md-1">POST</div>
             <div class="col-md-3">/api/person/</div>
             <div class="col-md-2">[firstName, lastName, phone,]</div>
             <div class="col-md-3"></div>
-            <div class="col-md-3">(e4)</div>
+            <div class="col-md-3">(e5)</div>
         </div>
         <div class="row mt-4">
             <div class="col-md-1">PUT</div>
             <div class="col-md-3">/api/person/update/{id}</div>
             <div class="col-md-2">[ID, firstName, lastName, phone]</div>
             <div class="col-md-3"></div>
-            <div class="col-md-3">(e5)</div>
+            <div class="col-md-3">(e6)</div>
         </div>
         <div class="row mt-4">
             <div class="col-md-1">PUT</div>
             <div class="col-md-3">/api/person/addhobby/{id}</div>
             <div class="col-md-2">[title]</div>
             <div class="col-md-3"></div>
-            <div class="col-md-3">(e6)</div>
+            <div class="col-md-3">(e7)</div>
         </div>
         <div class="row mt-4">
             <div class="col-md-1">DELETE</div>
             <div class="col-md-3">/api/person/delete/{id}</div>
             <div class="col-md-2"></div>
             <div class="col-md-3">”Ok” - 200</div>
-            <div class="col-md-3">(e7)</div>
+            <div class="col-md-3">(e8)</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md">
+                <h1 class="h2 mt-4">API Errors</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                (e1) = NotFound
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                (e2) = NotFound
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                (e3) = NotFound
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                (e4) = NotFound
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                (e5) = MissingInput
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                (e6) = NotFound
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                (e7) = NotFound / MissingInput
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                (e8) = NotFound
+            </div>
+        </div>
+        <div class="row">
+            <ul style="margin-top: 30px">
+                <li>(e1)  :{ status : 404, "msg": "No records were found in the database" }</li>
+                <li>(e2)  :{ status : 404, "msg": "No person with the provided id was found" }</li>
+                <li>(e3)  :{ status : 404, "msg": "No person with the provided phone was found" }</li>
+                <li>(e4)  :{ status : 404, "msg": "No hobby with the provided title was found" }</li>
+                <li>(e5)  :{ status : 400, "msg": "An input field is missing data" }</li>
+                <li>(e6)  :{ status : 400, "msg": "Person ID: " + p.getId() + " not found" }</li>
+                <li>(e7)  :{ status : 400 / 404, "msg": "Missing input" / "msg": "No hobby with the provided id was found"  }</li>
+                <li>(e8)  :{ status : 404, "msg": "No person with the provided id was found" }</li>
+            </ul>
         </div>
 
     </div>
