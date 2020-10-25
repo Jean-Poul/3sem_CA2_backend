@@ -37,7 +37,6 @@ public class Tester {
         CityInfo cInf7 = new CityInfo("1650");
         CityInfo cInf8 = new CityInfo("4600");
         CityInfo cInf9 = new CityInfo("2400");
-        
 
         Address a1 = new Address("Teglværksvej 74", "Hunden bider", cInf1);
         Address a2 = new Address("Ericavej 147", "st. tv", cInf2);
@@ -48,8 +47,6 @@ public class Tester {
         Address a7 = new Address("Istedgade 3", "Kælderen", cInf7);
         Address a8 = new Address("Robådsgade 34", "3, mf", cInf8);
         Address a9 = new Address("Kanalen 3", "3, TV", cInf9);
-        
-
 
         Phone ph1 = new Phone(38792048, "home");
         Phone ph2 = new Phone(38640671, "work");
@@ -64,7 +61,6 @@ public class Tester {
         Phone ph11 = new Phone(42042069, "work");
         Phone ph12 = new Phone(44107040, "work");
 
-
         p1.setAddress(a1);
         p2.setAddress(a2);
         p3.setAddress(a3);
@@ -75,8 +71,6 @@ public class Tester {
         p8.setAddress(a6);
         p9.setAddress(a9);
         p10.setAddress(a8);
-        
-        
 
         p1.addPhone(ph1);
         p1.addPhone(ph2);
@@ -124,7 +118,7 @@ public class Tester {
             h12 = em.find(Hobby.class, 299L);
             h13 = em.find(Hobby.class, 369L);
             h14 = em.find(Hobby.class, 420L);
-            
+
             p1.AddHobby(h1);
             p2.AddHobby(h2);
             p2.AddHobby(h12);
