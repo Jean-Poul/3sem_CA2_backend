@@ -1,12 +1,126 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Group 8</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>CA2 running?</h1>
-        <p>Ping? Pongs!</p>
-        <p>Is the cache still not working?</p>
-    </body>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: sans-serif;
+            margin-top: 5%;
+            margin-left: 15%;
+            margin-right: 15%;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md">
+                <h1 class="display-4">DAT3SEM Group 8</h1>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md">
+                <a href="https://github.com/Jean-Poul/3sem_CA2_backend">Backend repo</a>
+            </div>
+            <div class="col-md">
+                <a href="https://github.com/Jean-Poul/3sem_CA2_frontend">Frontend repo</a>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md">
+                <a href="https://github.com/AlexanderPihl">Github: Alexander</a><br>
+                <a href="https://github.com/Jean-Poul">Github: Jean-Paul</a><br>
+                <a href="https://github.com/Amazingh0rse">Github: Morten</a><br>
+                <a href="https://github.com/MivleDK">Github: Mick</a><br>
+                <a href="https://github.com/cph-pk">Github: Per</a><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <h1 class="h2 mt-4">API Description</h1>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-1 font-weight-bold">METHOD</div>
+            <div class="col-md-3 font-weight-bold">URL</div>
+            <div class="col-md-2 font-weight-bold">REQUEST BODY (JSON)</div>
+            <div class="col-md-3 font-weight-bold">RESPONSE (JSON)</div>
+            <div class="col-md-3 font-weight-bold">ERROR (e)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">GET</div>
+            <div class="col-md-3">/api/person/count</div>
+            <div class="col-md-2"></div>
+            <div class="col-md-3">count</div>
+            <div class="col-md-3">(e1)</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-1">GET</div>
+            <div class="col-md-3">/api/person/phone/{phone}</div>
+            <div class="col-md-2"></div>
+            <div class="col-md-3">[ID, email, firstName, lastName, street, zipcode, additionalInfo, [phone1, phone2,
+                phone3…],
+                [hobby1, hobby2, hobby3…]]</div>
+            <div class="col-md-3">(e2)</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-1">GET</div>
+            <div class="col-md-3">/api/person/hobbies/{title}</div>
+            <div class="col-md-2"></div>
+            <div class="col-md-3">[title, url, category]</div>
+            <div class="col-md-3">(e3)</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-1">POST</div>
+            <div class="col-md-3">/api/person/</div>
+            <div class="col-md-2">[firstName, lastName, phone,]</div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">(e4)</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-1">PUT</div>
+            <div class="col-md-3">/api/person/update/{id}</div>
+            <div class="col-md-2">[ID, firstName, lastName, phone]</div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">(e5)</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-1">PUT</div>
+            <div class="col-md-3">/api/person/addhobby/{id}</div>
+            <div class="col-md-2">[title]</div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">(e6)</div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-1">DELETE</div>
+            <div class="col-md-3">/api/person/delete/{id}</div>
+            <div class="col-md-2"></div>
+            <div class="col-md-3">”Ok” - 200</div>
+            <div class="col-md-3">(e7)</div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
 </html>
