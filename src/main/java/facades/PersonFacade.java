@@ -70,9 +70,11 @@ public class PersonFacade {
         EntityManager em = getEntityManager();
         try {
             Person p = em.find(Person.class, phone);
+            
             if (p == null) {
                 throw new NotFound("No person with the provided phone was found");
             }
+            
             PersonDTO personDTO = new PersonDTO(p);
 
             return personDTO;
@@ -102,9 +104,11 @@ public class PersonFacade {
 
         EntityManager em = getEntityManager();
         Person person = em.find(Person.class, p.getId());
+        
         if (person == null) {
             throw new NotFound("Person ID: " + p.getId() + " not found");
         }
+        
         person.setEmail(p.getEmail());
         person.setFirstName(p.getFirstName());
         person.setLastName(p.getLastName());
@@ -123,7 +127,7 @@ public class PersonFacade {
         EntityManager em = emf.createEntityManager();
         Person p = em.find(Person.class, id);
 
-        if (p.getId() == 0 || p == null) {
+        if (p.getId() == 0) {
             throw new NotFound("No person with the provided id was found");
         }
 
@@ -158,8 +162,9 @@ public class PersonFacade {
                 newPerson.getZip().length() == 0 || newPerson.getStreet().length() == 0 ||
                 newPerson.getAdditionalInfo().length() == 0
                 ) {
-            throw new MissingInput("An input field is missing input");
+            throw new MissingInput("An input field is missing data");
         }
+        
         try {
             em.getTransaction().begin();
             em.persist(phone);
