@@ -32,7 +32,7 @@ public class PersonFacadeTest {
 
     private Person p1;
     private Person p2;
-    
+
     private Hobby h1;
 
     public PersonFacadeTest() {
@@ -56,7 +56,7 @@ public class PersonFacadeTest {
         EntityManager em = emf.createEntityManager();
         p1 = new Person("Mick@hotmale.com", "Mick", "Larsen");
         p2 = new Person("Hejsa@med.dig", "Per", "Kringel");
-        
+
         h1 = new Hobby("Fodbold", "https://en.wikipedia.org/wiki/Fodbold", "Generel", "Udendørs");
 
         try {
@@ -66,7 +66,7 @@ public class PersonFacadeTest {
 
             em.persist(p1);
             em.persist(p2);
-            
+
             em.persist(h1);
 
             em.getTransaction().commit();
@@ -109,7 +109,7 @@ public class PersonFacadeTest {
         facade.addPerson(personDTO);
         assertEquals(3, facade.getPersonCount());
     }
-    
+
     @Test
     public void testgetHobbyByName() throws NotFound {
         String expected = h1.getName();
