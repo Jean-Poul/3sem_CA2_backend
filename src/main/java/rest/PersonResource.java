@@ -54,7 +54,7 @@ public class PersonResource {
     @Path("/{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getById(@PathParam("id") long id) {
+    public String getById(@PathParam("id") long id) throws NotFound {
         return GSON.toJson(FACADE.getPerson(id));
     }
     

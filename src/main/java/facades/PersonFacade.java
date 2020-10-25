@@ -198,7 +198,7 @@ public class PersonFacade {
         person.addPhone(phone);
 
         if (    newPerson.getFirstName().length() == 0 || newPerson.getLastName().length() == 0 || 
-                newPerson.getEmail().length() == 0 || newPerson.getPhone() == null ||
+                newPerson.getEmail().length() == 0 || newPerson.getPhoneNumbers() == null ||
                 newPerson.getZip().length() == 0 || newPerson.getStreet().length() == 0 ||
                 newPerson.getAdditionalInfo().length() == 0
                 ) {
