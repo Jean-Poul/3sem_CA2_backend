@@ -14,6 +14,7 @@
                  but also more verbose, log-info 
                  NOTE in production the values will be set to WARNING to report only potential serious problems
             -->
+
       <property name="eclipselink.logging.level" value="INFO"/>
       <property name="eclipselink.logging.level.sql" value="INFO"/>
       <property name="eclipselink.logging.parameters" value="true"/>
@@ -46,4 +47,5 @@
       <property name="eclipselink.logging.parameters" value="true"/>
     </properties>
   </persistence-unit>
+
 </persistence>
