@@ -77,7 +77,7 @@ public class PersonFacade {
             Person p = em.find(Person.class, id);
 
             if (p == null) {
-                throw new NotFound("No person with the provided phone was found");
+                throw new NotFound("No person with the provided id was found");
             }
 
             PersonDTO personDTO = new PersonDTO(p);
